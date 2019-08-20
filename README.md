@@ -15,6 +15,6 @@ Repository: CRAN <br />
 link to package on CRAN: https://cran.r-project.org/package=UniprotR <br />
 
 # Bugs or feature request
-To report us of any bugs or new features, please open a new issue or contact email to #Mohmedsoudy2009@gmail.com.
+To report us of any bugs or new features, please open a new issue or contact email to #Proteomicslab2017@gmail.com.
 
 
