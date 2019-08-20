@@ -13,3 +13,8 @@ magrittr , magick , data.tree , ggplot2 <br />
 NeedsCompilation: no <br />
 Repository: CRAN <br />
 link to package on CRAN: https://cran.r-project.org/package=UniprotR <br />
+
+# Bugs or feature request
+To report us of any bugs or new features, please open a new issue or contact email to #Mohmedsoudy2009@gmail.com.
+
+
