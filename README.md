@@ -32,6 +32,7 @@ PlotProteinGO_molc(GeneOntologyObj)
 #Plot subcellualr localization information 
 PlotProteinGO_cel(GeneOntologyObj) 
 #Get Protein-Protein Interaction within input data 
+#Path example = "E:/Users/Network.pdf"
 GetproteinNetwork(Accessions , Path to save your pdf file) 
 ```
 # Bugs or feature request
