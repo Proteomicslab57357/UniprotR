@@ -15,7 +15,7 @@ Repository: CRAN <br />
 link to package on CRAN: https://cran.r-project.org/package=UniprotR <br />
 
 # Example
-<p style='color:red'>library(UniprotR).</p>
+```R
 library(UniprotR) <br />
 #Read Accessions from csv file , Note : Accessions must be in the first column. <br />
 Accessions <-GetAccessionList("https://s3.amazonaws.com/csvpastebin/uploads/9571fa356c67a0c7c95e8431799a051a/Accessions.csv") <br />
@@ -33,6 +33,7 @@ PlotProteinGO_molc(GeneOntologyObj) <br />
 PlotProteinGO_cel(GeneOntologyObj) <br />
 #Get Protein-Protein Interaction within input data <br />
 GetproteinNetwork(Accessions , Path to save your pdf file) <br />
+```
 # Bugs or feature request
 To report us of any bugs or new features, please open a new issue or contact email to #Proteomicslab2017@gmail.com.
 
