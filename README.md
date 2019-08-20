@@ -16,23 +16,23 @@ link to package on CRAN: https://cran.r-project.org/package=UniprotR <br />
 
 # Example
 ```R
-library(UniprotR) <br />
-#Read Accessions from csv file , Note : Accessions must be in the first column. <br />
-Accessions <-GetAccessionList("https://s3.amazonaws.com/csvpastebin/uploads/9571fa356c67a0c7c95e8431799a051a/Accessions.csv") <br />
-#Get Taxanomy Information <br />
-TaxaObj <- GetNamesTaxa(Accessions) <br />
-#Visualize Chromosomes localization <br />
-PlotSummaryInfo(TaxaObj) <br />
-#Get Gene ontolgy Information <br />
-GeneOntologyObj <- GetProteinGOInfo(Accessions) <br />
-#Plot Biological process information <br />
-PlotProteinGO_bio(GeneOntologyObj) <br />
-#Plot molecular function information <br />
-PlotProteinGO_molc(GeneOntologyObj) <br />
-#Plot subcellualr localization information <br />
-PlotProteinGO_cel(GeneOntologyObj) <br />
-#Get Protein-Protein Interaction within input data <br />
-GetproteinNetwork(Accessions , Path to save your pdf file) <br />
+library(UniprotR) 
+#Read Accessions from csv file , Note : Accessions must be in the first column. 
+Accessions <-GetAccessionList("https://s3.amazonaws.com/csvpastebin/uploads/9571fa356c67a0c7c95e8431799a051a/Accessions.csv") 
+#Get Taxanomy Information 
+TaxaObj <- GetNamesTaxa(Accessions) 
+#Visualize Chromosomes localization
+PlotSummaryInfo(TaxaObj)
+#Get Gene ontolgy Information 
+GeneOntologyObj <- GetProteinGOInfo(Accessions) 
+#Plot Biological process information 
+PlotProteinGO_bio(GeneOntologyObj) 
+#Plot molecular function information 
+PlotProteinGO_molc(GeneOntologyObj)
+#Plot subcellualr localization information 
+PlotProteinGO_cel(GeneOntologyObj) 
+#Get Protein-Protein Interaction within input data 
+GetproteinNetwork(Accessions , Path to save your pdf file) 
 ```
 # Bugs or feature request
 To report us of any bugs or new features, please open a new issue or contact email to #Proteomicslab2017@gmail.com.
