@@ -16,8 +16,8 @@ link to package on CRAN: https://cran.r-project.org/package=UniprotR <br />
 
 # Example
 library(UniprotR) <br />
-#Read Accessions from csv file , Note : Accessions must be in the first column <br />
-Accessions <- GetAccessionList("https://s3.amazonaws.com/csvpastebin/uploads/9571fa356c67a0c7c95e8431799a051a/Accessions.csv") <br />
+#Read Accessions from csv file , Note : Accessions must be in the first column. <br />
+Accessions <-GetAccessionList("https://s3.amazonaws.com/csvpastebin/uploads/9571fa356c67a0c7c95e8431799a051a/Accessions.csv") <br />
 #Get Taxanomy Information <br />
 TaxaObj <- GetNamesTaxa(Accessions) <br />
 #Visualize Chromosomes localization <br />
