@@ -9,8 +9,7 @@ number such information could be name or taxonomy information,The package provid
 License: GPL-3 <br />
 Encoding: UTF-8 <br />
 Imports: utils , grDevices , graphics, httr , plyr , scales , stats ,
-magrittr , magick , data.tree , ggplot2
-NeedsCompilation: no
-Repository: CRAN
-Date/Publication: 2019-08-19 09:00:02 UTC
-link to package on CRAN: https://cran.r-project.org/package=UniprotR
+magrittr , magick , data.tree , ggplot2 <br />
+NeedsCompilation: no <br />
+Repository: CRAN <br />
+link to package on CRAN: https://cran.r-project.org/package=UniprotR <br />
