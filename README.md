@@ -1,6 +1,6 @@
 # UniprotR: Retrieving and visualizing protein sequence and functional information from Universal Protein Resource (UniProtknowledgebase)
 
-![Alt text](https://i.ibb.co/jDS7Khq/pinterest-profile-image.png)
+![](https://i.ibb.co/jDS7Khq/pinterest-profile-image.png)
 
 
 # Installation
@@ -54,4 +54,8 @@ For bugs and suggestions, the most effective way is by raising an issue on the g
 
 **Email: Proteomicslab2017@gmail.com**
 
+# Citation
 
+M. Soudy, A. Anwar, E.A. Ahmed, et al., UniprotR: Retrieving and visualizing protein sequence and functional information from Universal Protein Resource (UniProt knowledgebase), Journal of Proteomics (2019), https://doi.org/10.1016/j.jprot.2019.103613
+
+![](https://github.com/AliYoussef96/UniprotR/blob/master/logos/CCHF_57357.png)
