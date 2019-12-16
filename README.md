@@ -1,4 +1,4 @@
-# UniprotR :Retrieving and visualizing protein sequence and functional information from Universal Protein Resource (UniProtknowledgebase)
+# UniprotR: Retrieving and visualizing protein sequence and functional information from Universal Protein Resource (UniProtknowledgebase)
 
 ![Alt text](https://i.ibb.co/jDS7Khq/pinterest-profile-image.png)
 
@@ -52,6 +52,6 @@ GetproteinNetwork(Accessions , Path to save your pdf file)
 
 For bugs and suggestions, the most effective way is by raising an issue on the github issue tracker. Github allows you to classify your issues so that we know if it is a bug report, feature request or feedback to the authors.
 
-**Email to Proteomicslab2017@gmail.com**
+**Email: Proteomicslab2017@gmail.com**
 
 
