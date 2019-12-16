@@ -1,11 +1,25 @@
-# UniprotR : Retrieving Information of Proteins from Uniprot
-![Alt text](https://i.ibb.co/jDS7Khq/pinterest-profile-image.png)
+# UniprotR: Retrieving and visualizing protein sequence and functional information from Universal Protein Resource (UniProtknowledgebase)
+
+![](https://i.ibb.co/jDS7Khq/pinterest-profile-image.png)
+
+
+# Installation
+
+```R
+install.packages("UniprotR")
+```
 
 # Description
+
 Connect to Uniprot <https://www.uniprot.org/> to retrieve information about proteins using their accession 
 number such information could be name or taxonomy information,The package provides a powerful data retrieval capabilities in addition to screening visualization tool, and ID conversion tool that helps researchers for analyzing their proteomics data as well as subsequent downstream analysis.
 
+# Documentation
+
+For the documentation see: [UniprotR Documentation](https://cran.r-project.org/web/packages/UniprotR/UniprotR.pdf).
+
 # Package information
+
 License: GPL-3 <br />
 Encoding: UTF-8 <br />
 Imports: utils , grDevices , graphics, httr , plyr , scales , stats ,
@@ -14,7 +28,10 @@ NeedsCompilation: no <br />
 Repository: CRAN <br />
 link to package on CRAN: https://cran.r-project.org/package=UniprotR <br />
 
-# Example
+# Usage
+
+**Example**
+
 ```R
 library(UniprotR) 
 #Read Accessions from csv file , Note : Accessions must be in the first column. 
@@ -35,7 +52,14 @@ PlotProteinGO_cel(GeneOntologyObj)
 #Path example = "E:/Users/Network.pdf"
 GetproteinNetwork(Accessions , Path to save your pdf file) 
 ```
-# Bugs or feature request
-To report us of any bugs or new features, please open a new issue or contact email to #Proteomicslab2017@gmail.com.
+# Contribution Guidelines
 
+For bugs and suggestions, the most effective way is by raising an issue on the github issue tracker. Github allows you to classify your issues so that we know if it is a bug report, feature request or feedback to the authors.
 
+**Email: Proteomicslab2017@gmail.com**
+
+# Citation
+
+M. Soudy, A. Anwar, E.A. Ahmed, et al., UniprotR: Retrieving and visualizing protein sequence and functional information from Universal Protein Resource (UniProt knowledgebase), Journal of Proteomics (2019), https://doi.org/10.1016/j.jprot.2019.103613
+
+![](https://github.com/AliYoussef96/UniprotR/blob/master/logos/CCHF_57357.png)
