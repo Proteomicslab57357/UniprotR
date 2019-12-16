@@ -1,6 +1,5 @@
 # UniprotR: Retrieving and visualizing protein sequence and functional information from Universal Protein Resource (UniProtknowledgebase)
 
-![](https://i.ibb.co/jDS7Khq/pinterest-profile-image.png)
 
 
 # Installation
