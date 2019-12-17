@@ -19,6 +19,7 @@ For the documentation see: [UniprotR Documentation](https://cran.r-project.org/w
 
 # Package information
 
+Version: **v1.2.2**
 License: GPL-3 <br />
 Encoding: UTF-8 <br />
 Imports: utils , grDevices , graphics, httr , plyr , scales , stats ,
