@@ -62,6 +62,8 @@ For bugs and suggestions, the most effective way is by raising an issue on the g
 
 **Email: Proteomicslab2017@gmail.com**
 
+# Future plans
+
 # Citation
 
 M. Soudy, A. Anwar, E.A. Ahmed, et al., UniprotR: Retrieving and visualizing protein sequence and functional information from Universal Protein Resource (UniProt knowledgebase), Journal of Proteomics (2019), https://doi.org/10.1016/j.jprot.2019.103613
