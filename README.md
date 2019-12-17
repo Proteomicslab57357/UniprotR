@@ -1,6 +1,6 @@
 # UniprotR: Retrieving and visualizing protein sequence and functional information from Universal Protein Resource (UniProtknowledgebase)
 
-[![Build Status](https://travis-ci.com/AliYoussef96/UniprotR.svg?branch=master)](https://travis-ci.com/AliYoussef96/UniprotR)
+[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/UniprotR?color=blue)](https://r-pkg.org/pkg/UniprotR) [![Build Status](https://travis-ci.com/AliYoussef96/UniprotR.svg?branch=master)](https://travis-ci.com/AliYoussef96/UniprotR)
 
 ![](https://i.ibb.co/jDS7Khq/pinterest-profile-image.png)
 
