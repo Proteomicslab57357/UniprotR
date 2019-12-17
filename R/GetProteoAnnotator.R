@@ -79,6 +79,3 @@ GetProteinAnnontate <- function(ProteinAccList,columns){
 
   return(ProteinInfoParsed_total_col)
 }
-
-
-

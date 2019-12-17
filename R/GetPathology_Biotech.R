@@ -25,7 +25,7 @@
 GetPathology_Biotech<- function(ProteinAccList , directorypath = NULL){
 
   # Pathology_Biotech information to be collected
-  columns <- c("comment(ALLERGEN),comment(BIOTECHNOLOGY),comment(DISRUPTION PHENOTYPE),comment(DISEASE),comment(PHARMACEUTICAL),comment(TOXIC DOSE)")
+  columns <- "comment(ALLERGEN),comment(BIOTECHNOLOGY),comment(DISRUPTION PHENOTYPE),comment(DISEASE),comment(PHARMACEUTICAL),comment(TOXIC DOSE)"
   baseUrl <- "http://www.uniprot.org/uniprot/"
   ProteinInfoParsed_total = data.frame()
   for (ProteinAcc in ProteinAccList)

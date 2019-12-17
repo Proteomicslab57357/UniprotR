@@ -6,7 +6,7 @@
 #'
 #' @param GO_df  Dataframe.
 #'
-#' @param dir_path path to save excel file containig results returened by the function ( default = NA ).
+#' @param dir_path path to save files returened by the function ( default = NA ).
 #'
 #' @note if no dir_path was given ( default = NA ) the function will only view the plot and will not save it
 #'
@@ -42,15 +42,19 @@ PlotProteinGO_bio <- function(GO_df, dir_path = NA)
 
   colnames(occurences) <- c("biological_process","Frequences")
 
-  bar_plot <- ggplot(data=occurences, aes(x= reorder(occurences$biological_process , occurences$Frequences), y=occurences$Frequences)) +
+  occurences %>%
+    mutate(freq = percent(occurences$Freq / sum(occurences$Freq))) -> occurences
+
+  bar_plot <- ggplot(data=occurences, aes(x= reorder(occurences$biological_process ,occurences$Frequences)  , y=occurences$Frequences)) +
     geom_bar(stat="identity", fill="steelblue" , alpha = 0.7) + xlab("Frequency") + ylab("Biological function")+
+   # geom_text(aes(label = occurences$freq), vjust = -0.03) + theme(axis.text.x = element_text(angle = 90 , hjust = 1 , vjust = 0.2))+
     theme_minimal() +coord_flip() +theme(text = element_text(size=12))
   print (bar_plot)
 
 
 
   if ( !is.na(dir_path) ) {
-  ggsave(paste0(dir_path, "//" ,"GO_plot_bio.jpeg") ,plot = bar_plot , device = "jpeg",dpi = 300,width = 20, height = 10 )
+  ggsave(paste0(dir_path, "//" ,"GO_plot_bio.jpeg") ,plot = bar_plot , device = "jpeg",dpi = 300,width = 20, height = 20 )
   }
 
 }
@@ -65,7 +69,7 @@ PlotProteinGO_bio <- function(GO_df, dir_path = NA)
 #'
 #' @param GO_df  Dataframe.
 #'
-#' @param dir_path path to save excel file containig results returened by the function ( default = NA ).
+#' @param dir_path path to save files returened by the function ( default = NA ).
 #'
 #' @note if no dir_path was given ( default = NA ) the function will only view the plot and will not save it
 #'
@@ -100,13 +104,17 @@ PlotProteinGO_molc <- function(GO_df, dir_path = NA)
 
   colnames(occurences) <- c("molecular_functions","Frequences")
 
+  occurences %>%
+    mutate(freq = percent(occurences$Freq / sum(occurences$Freq))) -> occurences
+
   bar_plot <- ggplot(data=occurences, aes(x=reorder(occurences$molecular_functions , occurences$Frequences), y=occurences$Frequences)) +
     geom_bar(stat="identity", fill="steelblue" , alpha = 0.7) + xlab("Frequency") + ylab("molecular function")+
-    theme_minimal() +coord_flip() +theme(text = element_text(size=12))
+    geom_text(aes(label = occurences$freq), vjust = -0.03) + theme(axis.text.x = element_text(angle = 90 , hjust = 1 , vjust = 0.2))+
+    theme_minimal() +coord_flip() + theme_bw()+theme(text = element_text(size=12, face="bold", colour="black"),axis.text.x = element_text(vjust=2))
   print (bar_plot)
 
   if ( !is.na(dir_path) ) {
-    ggsave(paste0(dir_path, "//" ,"GO_plot_molc.jpeg") ,plot = bar_plot , device = "jpeg",dpi = 300,width = 20, height = 10 )
+    ggsave(paste0(dir_path, "//" ,"GO_plot_molc.jpeg") ,plot = bar_plot , device = "jpeg",dpi = 300,width = 20, height = 15 )
   }
 
 }
@@ -122,7 +130,7 @@ PlotProteinGO_molc <- function(GO_df, dir_path = NA)
 #'
 #' @param GO_df  Dataframe.
 #'
-#' @param dir_path path to save excel file containig results returened by the function ( default = NA ).
+#' @param dir_path path to save files returened by the function ( default = NA ).
 #'
 #' @note if no dir_path was given ( default = NA ) the function will only view the plot and Will not save it
 #'
@@ -157,10 +165,15 @@ PlotProteinGO_cel <- function(GO_df, dir_path = NA)
 
   colnames(occurences) <- c("cellular_components","Frequences")
 
+  occurences %>%
+    mutate(freq = percent(occurences$Freq / sum(occurences$Freq))) -> occurences
 
   bar_plot <- ggplot(data=occurences, aes(x=reorder(occurences$cellular_components, occurences$Frequences), y=occurences$Frequences)) +
     geom_bar(stat="identity", fill="steelblue" , alpha = 0.7) + xlab("Frequency") + ylab("cellular component")+
-    theme_minimal() +coord_flip() +theme(text = element_text(size=12))
+    geom_text(aes(label = occurences$freq), vjust = -0.03) + theme(axis.text.x = element_text(angle = 90 , hjust = 1 , vjust = 0.2))+
+    theme_minimal() +coord_flip() + theme_bw()+theme(text = element_text(size=12, face="bold", colour="black"),axis.text.x = element_text(vjust=2))
+
+
   print (bar_plot)
 
   if ( !is.na(dir_path) ) {

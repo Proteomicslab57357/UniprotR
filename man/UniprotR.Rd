@@ -58,13 +58,23 @@ _______________________________________________
 
 PlotProteinTaxa
 
-PlotSummaryInfo
+PlotChromosomeInfo
+
+PlotGoInfo
+
+plotGoannotation
 
 PlotProteinGO_bio
 
 PlotProteinGO_cel
 
 PlotProteinGO_molc
+
+PlotproteinScore
+
+PlotproteinStatus
+
+PlotproteinExist
 
 each function has a description that could be reached by  >>> ?Function_Name
 }

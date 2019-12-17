@@ -9,7 +9,7 @@ PlotProteinTaxa(ProteinDataObject , directorypath = NULL)
 \arguments{
 \item{ProteinDataObject}{input a Dataframe of proteins as rownames.}
 
-\item{directorypath}{path to save excel file containig results returened by the function.}
+\item{directorypath}{path to save files returened by the function.}
 }
 \description{
 This Function is used to plot different taxas found of the accessions.

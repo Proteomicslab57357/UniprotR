@@ -2,7 +2,7 @@
 #'
 #' This Function is used to plot location's Tree in the data of the accession/s in the chromosomes.
 #'
-#' @usage ConstructLocTree (ProteinDataObject,directorypath = NULL)
+#' @usage ConstructLocTree(ProteinDataObject,directorypath = NULL)
 #'
 #' @param ProteinDataObject input a Dataframe returned from GetNamesTaxa function
 #'
@@ -13,9 +13,9 @@
 #' @export
 ConstructLocTree <- function(ProteinDataObject,directorypath = NULL)
 {
+  ProteinDataObject <- ProteinDataObject %>% select(10)
+  ProteinDataObject <- na.omit(ProteinDataObject)
   UniqueLocis <- unique(ProteinDataObject$Proteomes)
-  UniqueLocis[is.na(UniqueLocis)] <- "NA"
-  ProteinDataObject$Proteomes[is.na(ProteinDataObject$Proteomes)] <- "NA"
 
   #Add parent Node
   ChromoTree <- Node$new("Chromosomes")
@@ -26,7 +26,8 @@ ConstructLocTree <- function(ProteinDataObject,directorypath = NULL)
     for (index in Frequencyindecies)
       {
       locaa <- loca$AddChild(rownames(ProteinDataObject)[index])
-      }
+    }
+    print(ChromoTree)
   }
   if(!is.null(directorypath))
   {

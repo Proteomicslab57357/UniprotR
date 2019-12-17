@@ -26,7 +26,7 @@ GetpdbStructure <- function(ProteinAccList , directorypath = NULL)
       download.file(RequiredAcc , paste0(directorypath , "//" , ProteinAcc,".pdb"))
     }
     else{
-      HandleBadRequests(Request_Response)
+      HandleBadRequests(Request_Response$status_code)
     }
   }
 }

@@ -9,7 +9,7 @@ PlotProteinGO_bio(GO_df , dir_path = NA)
 \arguments{
 \item{GO_df}{Dataframe.}
 
-\item{dir_path}{path to save excel file containig results returened by the function ( default = NA ).}
+\item{dir_path}{path to save files returened by the function ( default = NA ).}
 }
 \description{
 This Function is used to plot biological process data retrieved from UniprotR Function "GetProteinGOInfo".

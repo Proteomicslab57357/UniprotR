@@ -4,7 +4,7 @@
 \alias{ConstructLocTree}
 \title{Connect and parse UniProt information.}
 \usage{
-ConstructLocTree (ProteinDataObject,directorypath = NULL)
+ConstructLocTree(ProteinDataObject,directorypath = NULL)
 }
 \arguments{
 \item{ProteinDataObject}{input a Dataframe returned from GetNamesTaxa function}
