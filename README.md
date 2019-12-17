@@ -29,7 +29,7 @@ For the documentation see: [UniprotR Documentation](https://cran.r-project.org/w
 - Imports: utils , grDevices , graphics, httr , plyr , scales , stats , magrittr , magick , data.tree , ggplot2
 - NeedsCompilation: no
 - Repository: CRAN
-- link to package on CRAN: https://cran.r-project.org/package=UniprotR
+- link to package on CRAN: [UniprotR](https://cran.r-project.org/package=UniprotR)
 
 
 # Usage
