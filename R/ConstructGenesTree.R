@@ -1,8 +1,8 @@
 #' Connect and parse UniProt information.
 #'
-#' This Function is used to plot location's Tree in the data of the accession/s in the chromosomes.
+#' This Function is used to plot Genes Tree in the data of the accession/s.
 #'
-#' @usage ConstructLocTree(ProteinDataObject,directorypath = NULL)
+#' @usage ConstructGenesTree(ProteinDataObject,directorypath = NULL)
 #'
 #' @param ProteinDataObject input a Dataframe returned from GetNamesTaxa function
 #'
@@ -11,27 +11,25 @@
 #' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
 #'
 #' @export
-ConstructLocTree <- function(ProteinDataObject,directorypath = NULL)
+ConstructGenesTree <- function(ProteinDataObject,directorypath = NULL)
 {
-  ProteinDataObject <- ProteinDataObject %>% select(10)
+  ProteinDataObject <- ProteinDataObject %>% select(3)
   ProteinDataObject <- na.omit(ProteinDataObject)
-  UniqueLocis <- unique(ProteinDataObject$Proteomes)
-
+  UniqueLocis <- unique(ProteinDataObject$Gene.names...primary..)
   #Add parent Node
-  ChromoTree <- Node$new("Chromosomes")
+  ChromoTree <- Node$new("GeneNames")
   for(loc in UniqueLocis)
-    {
+  {
     loca <- ChromoTree$AddChild(loc);
-    Frequencyindecies <- which(ProteinDataObject$Proteomes %in% loc)
+    Frequencyindecies <- which(ProteinDataObject$Gene.names...primary.. %in% loc)
     for (index in Frequencyindecies)
-      {
+    {
       locaa <- loca$AddChild(rownames(ProteinDataObject)[index])
     }
-    print(ChromoTree)
   }
   if(!is.null(directorypath))
   {
-    write.table(ChromoTree , paste0(directorypath,"//","ChromosomesTree.txt"), row.names = F)
+    write.table(ChromoTree , paste0(directorypath,"//","GenesTree.txt"), row.names = F)
   }
   print(ChromoTree)
   plot(ChromoTree)
