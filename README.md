@@ -19,13 +19,13 @@ For the documentation see: [UniprotR Documentation](https://cran.r-project.org/w
 
 # Package information
 
-License: GPL-3 <br />
-Encoding: UTF-8 <br />
-Imports: utils , grDevices , graphics, httr , plyr , scales , stats ,
-magrittr , magick , data.tree , ggplot2 <br />
-NeedsCompilation: no <br />
-Repository: CRAN <br />
-link to package on CRAN: https://cran.r-project.org/package=UniprotR <br />
+- Version: **v1.2.2**
+- License: GPL-3
+- Encoding: UTF-8
+- Imports: utils , grDevices , graphics, httr , plyr , scales , stats , magrittr , magick , data.tree , ggplot2
+- NeedsCompilation: no
+- Repository: CRAN
+- link to package on CRAN: https://cran.r-project.org/package=UniprotR
 
 # Usage
 
