@@ -4,7 +4,6 @@
 [![](https://www.r-pkg.org/badges/version/UniprotR?color=green)](https://CRAN.R-project.org/package=UniprotR) 
 [![](https://img.shields.io/badge/doi-https%3A%2F%2Fdoi.org%2F10.1016%2Fj.jprot.2019.103613-red)](https://doi.org/10.1016/j.jprot.2019.103613)
 
-![](https://i.ibb.co/jDS7Khq/pinterest-profile-image.png)
 
 # Installation
 
@@ -25,11 +24,6 @@ For the documentation see: [UniprotR Documentation](https://cran.r-project.org/w
 
 - Version: **v1.2.2**
 - License: GPL-3
-- Encoding: UTF-8
-- Imports: utils , grDevices , graphics, httr , plyr , scales , stats , magrittr , magick , data.tree , ggplot2
-- NeedsCompilation: no
-- Repository: CRAN
-- link to package on CRAN: https://cran.r-project.org/package=UniprotR
 
 # Usage
 
