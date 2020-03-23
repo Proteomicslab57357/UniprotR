@@ -5,6 +5,8 @@
 \title{Connect and parse stringdb information.}
 \usage{
 GetproteinNetwork(ProteinAccList , directorypath = NULL)
+
+GetproteinNetwork(ProteinAccList , directorypath = NULL)
 }
 \arguments{
 \item{ProteinAccList}{input a vector of UniProt Accession/s}

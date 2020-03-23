@@ -15,5 +15,5 @@ PlotSummaryInfo (ProteinDataObject,directorypath = NULL)
 This Function is used to plot location's frequency in the data of the accession/s in the chromosomes.
 }
 \author{
-Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
+Mohmed Soudy and Ali Mostafa
 }
