@@ -21,6 +21,7 @@ PlotproteinScore <- function(ProteinDataObject,directorypath = NULL)
     xlab("Annotation score") + ylab("Protein Count") + guides(fill=guide_legend(title="Annotation")) + coord_trans() +
     theme_bw()+theme(text = element_text(size=17, face="bold", colour="black"),axis.text.x = element_text(vjust=2))+
     scale_fill_brewer(palette="Blues")
+  plot(Annotation)
 
   if(!is.null(directorypath))
   {

@@ -9,7 +9,7 @@
 #'
 #' @param directorypath path to save excel file containig results returened by the function.
 #'
-#' @usage GetproteinNetwork(ProteinAccList)
+#' @usage GetproteinNetwork(ProteinAccList , directorypath = NULL)
 #'
 #' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
 #'
@@ -26,7 +26,8 @@ GetproteinNetwork <- function(ProteinAccList , directorypath = NULL)
     if (Request$status_code == 200)
     {
       Network <- image_read(ProteinString)
-      ProteinName <- GetProteinAnnontate(identifier,"protein names")
+      ProteinFrame <- read.csv(URLencode(paste0("https://www.uniprot.org/uniprot/?query=accession:" ,identifier ,"&format=tab&columns=protein names")))
+      ProteinName <- as.character(ProteinFrame$Protein.names)
       plot(Network)
       title(list(paste0(identifier ,":" ,  ProteinName),cex = 0.4, font = 1))
       Accessions <- c(Accessions , identifier);

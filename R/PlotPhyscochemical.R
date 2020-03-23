@@ -24,7 +24,13 @@ PlotPhysicochemical <- function(SeqDataObjPath , directorypath = NULL)
 
   #Get charge Sign ratios
   Chargecount <- table(sign(result$Sequence_AA_CHARGE))
+  if (length(Chargecount) == 1){
+    Chargecount <<- as.table(cbind(Chargecount , 0));
+  }
   Chargeratio <- table(sign(result$Sequence_AA_CHARGE))/dim(result)[1]*100
+  if (length(Chargeratio) == 1){
+    Chargeratio <<- as.table(cbind(Chargeratio , 0));
+  }
   #Construct Charge dataframe
   Chargedf = data.frame(x = c("Negative" , "Positive") , y = Chargeratio , z = Chargecount)
   #Group data frame by GRAVY charge
@@ -34,7 +40,14 @@ PlotPhysicochemical <- function(SeqDataObjPath , directorypath = NULL)
   result <- cbind(result , GravyGroup)
   #Get GRAVY sign ratios
   GRAVYcount <- table(sign(result$Sequence_AA_GRAVY))
+  if (length(GRAVYcount) == 1){
+    GRAVYcount <- as.table(cbind(GRAVYcount , 0));
+  }
+
   GRAVYratio <-  table(sign(result$Sequence_AA_GRAVY))/dim(result)[1]*100
+  if (length(GRAVYratio) == 1){
+    GRAVYratio <- as.table(cbind(GRAVYratio , 0));
+  }
   #Construct GRAVY dataframe
   GRAVYdf = data.frame(x = c("Negative" , "Positive") , y = GRAVYratio , z = GRAVYcount)
 
@@ -81,7 +94,7 @@ PlotPhysicochemical <- function(SeqDataObjPath , directorypath = NULL)
 
   p
   TestAll <- ggarrange(Allplot , p , ncol = 2 , nrow = 1)
-  TestAll
+  plot(TestAll)
   if (!is.null(directorypath))
   {
     ggsave(filename =paste0(directorypath , "//" , "Physochemical.jpeg") , plot = TestAll , device = "jpeg" , width = 15 , height = 8 , dpi = 320)

@@ -37,9 +37,10 @@ GetProteinGOInfo <- function(ProteinAccList , directorypath = NULL)
     #columns = what to return from all of the information (see: https://www.uniprot.org/help/uniprotkb_column_names)
     ProteinName_url <- paste0("?query=accession:",ProteinAcc,"&format=tab&columns=",Colnames)
     RequestUrl <- paste0(baseUrl , ProteinName_url)
+    RequestUrl <- URLencode(RequestUrl)
     if (Request$status_code == 200){
       # parse the information in DataFrame
-      ProteinDataTable <- tryCatch(read.table(RequestUrl, header = TRUE, sep = '\t'), error=function(e) NULL)
+      ProteinDataTable <- tryCatch(read.csv(RequestUrl, header = TRUE, sep = '\t'), error=function(e) NULL)
       if (!is.null(ProteinDataTable))
       {
         ProteinInfoParsed <- as.data.frame(ProteinDataTable,row.names = ProteinAcc)

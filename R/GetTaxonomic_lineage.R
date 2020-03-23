@@ -40,9 +40,10 @@ GetTaxonomic_lineage <- function(ProteinAccList , directorypath = NULL){
     ProteinName_url <- paste0("?query=accession:",ProteinAcc,"&format=tab&columns=",columns)
 
     RequestUrl <- paste0(baseUrl , ProteinName_url)
+    RequestUrl <- URLencode(RequestUrl)
     if (Request$status_code == 200){
       # parse the information in DataFrame
-      ProteinDataTable <- tryCatch(read.table(RequestUrl, header = TRUE, sep = '\t'), error=function(e) NULL)
+      ProteinDataTable <- tryCatch(read.csv(RequestUrl, header = TRUE, sep = '\t'), error=function(e) NULL)
       if (!is.null(ProteinDataTable))
       {
         ProteinInfoParsed <- as.data.frame(ProteinDataTable,row.names = ProteinAcc)

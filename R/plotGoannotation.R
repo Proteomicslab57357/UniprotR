@@ -90,7 +90,6 @@ plotGoannotation <- function(ProteinDataObject,directorypath = NULL)
     annotate("text", x = rep(max(data$id),3), y = c(4, 15, 30), label = c("4", "15", "30") , color="grey", size=4 , angle=0, fontface="bold", hjust=1) +
 
     geom_bar(aes(x=as.factor(id), y=value, fill=group), stat="identity", alpha=0.5) +
-    ylim(-100,120) +
     theme_minimal() +
     theme(
       legend.position = "none",

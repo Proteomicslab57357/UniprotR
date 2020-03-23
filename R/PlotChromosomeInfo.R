@@ -50,12 +50,12 @@ PlotChromosomeInfo <- function(ProteinDataObject,directorypath = NULL)
   df <- cbind(df , value)
   colnames(df) <- c("Organism","Chromosome","value")
   df <- data.frame(df)
+  df$value <- as.numeric(df$value)
   ChromoSummary <- ggplot(df %>% arrange(df$Organism , desc(df$value)) %>%
                             mutate(Chromosome=factor(Chromosome, levels=Chromosome)),
                           aes(x=Chromosome,y=value, fill = Organism)) +
     geom_bar(stat="identity", show.legend=FALSE , alpha = 0.7) + xlab("Chromosome") + ylab("Frequency")+
     facet_grid(. ~ Organism, scales="free_x", space="free_x") +
-    scale_y_continuous(limits=c(0, (max(df$value) + 2)), expand=c(0,0)) +
     theme_classic() +
     theme(text = element_text(size=14, face="bold", colour="black") , axis.text.x = element_text(angle = 90), panel.spacing=unit(0,"pt"),
           panel.border=element_rect(colour="grey50", fill=NA))

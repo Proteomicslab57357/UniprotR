@@ -50,11 +50,11 @@ GetProteinAnnontate <- function(ProteinAccList,columns){
 
           #if there are information in uniprot then parse_true if not then parse_false
           parse_true <- function()
-          {ProteinInfoParsed <- as.data.frame(read.table(RequestUrl,sep="\t", header=TRUE),row.names = ProteinAcc)
+          {ProteinInfoParsed <- as.data.frame(read.csv(RequestUrl,sep="\t", header=TRUE),row.names = ProteinAcc)
           return(ProteinInfoParsed)
           }
           parse_false <- function()
-            {ProteinInfoParsed <- read.table(RequestUrl,sep="\t", header=TRUE)
+            {ProteinInfoParsed <- read.csv(RequestUrl,sep="\t", header=TRUE)
             names <- names(ProteinInfoParsed)
             ProteinInfoParsed <- data.frame(name_col = "NA" ,row.names = ProteinAcc)
             colnames(ProteinInfoParsed) <- names
