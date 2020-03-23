@@ -23,10 +23,10 @@ For the documentation see: [UniprotR Documentation](https://cran.r-project.org/w
 
 # Package information
 
-- Version: **v1.2.2**
+- Version: **v1.2.4**
 - License: GPL-3
 - Encoding: UTF-8
-- Imports: utils , grDevices , graphics, httr , plyr , scales , stats , magrittr , magick , data.tree , ggplot2
+- Imports: utils , grDevices , graphics, httr , plyr , dplyr , scales , stats , magrittr , magick , data.tree , ggplot2 , tidyverse , grid , gridExtra , ggpubr , alakazam
 - NeedsCompilation: no
 - Repository: CRAN
 - link to package on CRAN: [UniprotR](https://cran.r-project.org/package=UniprotR)
