@@ -15,7 +15,7 @@
 #' @param ID_to string of database identifier abbreviation, to which the Accession/ID will be converted.
 #'              default is all database identifier available in UniProtKB
 #'
-#' @param directorypath path to save excel file containig results returened by the function.
+#' @param directorypath path to save excel file containing results returened by the function.
 #'
 #' @return DataFrame where column one contains the Accession/ID before conversion
 #'      and other columns contains the Accession/ID after conversion

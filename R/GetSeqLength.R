@@ -6,7 +6,7 @@
 #'
 #' @param ProteinAccList Vector of UniProt Accession/s
 #'
-#' @param directorypath path to save excel file containig results returened by the function
+#' @param directorypath path to save excel file containing results returened by the function
 #'
 #' @return DataFrame where rows names are the accession
 #'      and columns contains the information retrieved from the UniProt

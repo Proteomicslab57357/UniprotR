@@ -6,7 +6,7 @@
 #'
 #' @param ProteomeID Proteome ID from UniProt
 #'
-#' @param directorypath path to save FASTA file containig results returened by the function.
+#' @param directorypath path to save FASTA file containing results returened by the function.
 #'
 #' @note The function Download fasta format of proteome.
 #'
