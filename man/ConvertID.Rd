@@ -15,7 +15,7 @@ ConvertID(ProteinAccList , ID_from = "ACC+ID" , ID_to = NULL
 \item{ID_to}{string of database identifier abbreviation, to which the Accession/ID will be converted.
 default is all database identifier available in UniProtKB}
 
-\item{directorypath}{path to save excel file containig results returened by the function.}
+\item{directorypath}{path to save excel file containing results returened by the function.}
 }
 \value{
 DataFrame where column one contains the Accession/ID before conversion

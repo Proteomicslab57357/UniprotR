@@ -9,7 +9,7 @@ ConstructGenesTree(ProteinDataObject,directorypath = NULL)
 \arguments{
 \item{ProteinDataObject}{input a Dataframe returned from GetNamesTaxa function}
 
-\item{directorypath}{path to save txt file containig results returened by the function.}
+\item{directorypath}{path to save txt file containing results returened by the function.}
 }
 \description{
 This Function is used to plot Genes Tree in the data of the accession/s.

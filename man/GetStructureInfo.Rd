@@ -9,7 +9,7 @@ GetStructureInfo(ProteinAccList, directorypath = NULL)
 \arguments{
 \item{ProteinAccList}{Vector of UniProt Accession/s.}
 
-\item{directorypath}{path to save excel file containig results returened by the function.}
+\item{directorypath}{path to save excel file containing results returened by the function.}
 }
 \value{
 DataFrame where rows names are the accession
