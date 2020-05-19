@@ -9,7 +9,7 @@ GetProteomeInfo(ProteomeID , directorypath = NULL)
 \arguments{
 \item{ProteomeID}{Proteome ID from UniProt}
 
-\item{directorypath}{path to save CSV file containig results returened by the function.}
+\item{directorypath}{path to save CSV file containing results returened by the function.}
 }
 \description{
 The function is work to retrieve proteome information based on proteome id.

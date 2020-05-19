@@ -9,7 +9,7 @@ PlotGoInfo(GOObj , directorypath = NULL)
 \arguments{
 \item{GOObj}{Dataframe.}
 
-\item{directorypath}{path to save excel file containig results returened by the function ( default = NA ).}
+\item{directorypath}{path to save excel file containing results returened by the function ( default = NA ).}
 }
 \description{
 This Function is used to plot data retrieved from UniprotR Function "Goparse".

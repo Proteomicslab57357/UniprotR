@@ -9,7 +9,7 @@ PlotSummaryInfo (ProteinDataObject,directorypath = NULL)
 \arguments{
 \item{ProteinDataObject}{input a Dataframe returned from GetNamesTaxa function}
 
-\item{directorypath}{path to save excel file containig results returened by the function.}
+\item{directorypath}{path to save excel file containing results returened by the function.}
 }
 \description{
 This Function is used to plot location's frequency in the data of the accession/s in the chromosomes.

@@ -9,7 +9,7 @@ GetpdbStructure(ProteinAccList , directorypath = NULL)
 \arguments{
 \item{ProteinAccList}{input a vector of UniProt Accession/s}
 
-\item{directorypath}{path to save excel file containig results returened by the function.}
+\item{directorypath}{path to save excel file containing results returened by the function.}
 }
 \description{
 The function is work to retrieving GetpdbStructure and download it

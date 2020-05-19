@@ -52,7 +52,7 @@ Goparse <- function(GOObj , index = 3)
 #'
 #' @param GOObj Dataframe.
 #'
-#' @param directorypath path to save excel file containig results returened by the function ( default = NA ).
+#' @param directorypath path to save excel file containing results returened by the function ( default = NA ).
 #'
 #' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
 #'

@@ -7,7 +7,7 @@
 #'
 #' @param ProteinAccList input a vector of UniProt Accession/s
 #'
-#' @param directorypath path to save excel file containig results returened by the function.
+#' @param directorypath path to save excel file containing results returened by the function.
 #'
 #' @usage GetproteinNetwork(ProteinAccList , directorypath = NULL)
 #'

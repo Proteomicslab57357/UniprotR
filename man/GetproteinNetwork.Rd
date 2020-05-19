@@ -11,7 +11,7 @@ GetproteinNetwork(ProteinAccList , directorypath = NULL)
 \arguments{
 \item{ProteinAccList}{input a vector of UniProt Accession/s}
 
-\item{directorypath}{path to save excel file containig results returened by the function.}
+\item{directorypath}{path to save excel file containing results returened by the function.}
 }
 \description{
 This function is connecting to stringdb and retrieve all possible interactions

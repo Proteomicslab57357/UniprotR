@@ -6,7 +6,7 @@
 #'
 #' @param ProteomeID Proteome ID from UniProt
 #'
-#' @param directorypath path to save CSV file containig results returened by the function.
+#' @param directorypath path to save CSV file containing results returened by the function.
 #'
 #' @note The function Download csv Info of proteome.
 #'
