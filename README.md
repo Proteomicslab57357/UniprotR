@@ -68,6 +68,7 @@ For bugs and suggestions, the most effective way is by raising an issue on the g
 - Launch a a web serivce for UniprotR to facilitate user system interaction
 # Citation
 
-M. Soudy, A. Anwar, E.A. Ahmed, et al., UniprotR: Retrieving and visualizing protein sequence and functional information from Universal Protein Resource (UniProt knowledgebase), Journal of Proteomics (2019), https://doi.org/10.1016/j.jprot.2019.103613
+Soudy, Mohamed, Ali Mostafa Anwar, Eman Ali Ahmed, Aya Osama, Shahd Ezzeldin, Sebaey Mahgoub, and Sameh Magdeldin. 2020. “UniprotR: Retrieving and Visualizing Protein Sequence and Functional Information from Universal Protein Resource (UniProt Knowledgebase).” Journal of Proteomics 213 (February). Elsevier B.V. doi:10.1016/j.jprot.2019.103613.
+
 
 ![](https://github.com/Proteomicslab57357/UniprotR/blob/master/logos/CCHF_57357.png)
