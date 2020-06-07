@@ -15,7 +15,7 @@
 #' @export
 #'
 
-PlotProteinGO_bio <- function(GO_df, dir_path = NA)
+PlotProteinGO_bio <- function(GO_df, dir_path = NA , data_go_only = FALSE)
 {
 
   GO_df_obj_bio <- toString(GO_df$Gene.ontology..biological.process.)
@@ -49,14 +49,21 @@ PlotProteinGO_bio <- function(GO_df, dir_path = NA)
     geom_bar(stat="identity", fill="steelblue" , alpha = 0.7) + xlab("Frequency") + ylab("Biological function")+
    # geom_text(aes(label = occurences$freq), vjust = -0.03) + theme(axis.text.x = element_text(angle = 90 , hjust = 1 , vjust = 0.2))+
     theme_minimal() +coord_flip() +theme(text = element_text(size=12))
-  print (bar_plot)
+
 
 
 
   if ( !is.na(dir_path) ) {
   ggsave(paste0(dir_path, "//" ,"GO_plot_bio.jpeg") ,plot = bar_plot , device = "jpeg",dpi = 300,width = 20, height = 20 )
   }
-
+  
+  
+  
+  if (data_go_only == TRUE) {
+    return(occurences)
+    
+  } else{return(bar_plot)}
+  
 }
 
 #######################
@@ -77,7 +84,7 @@ PlotProteinGO_bio <- function(GO_df, dir_path = NA)
 #'
 #' @export
 #'
-PlotProteinGO_molc <- function(GO_df, dir_path = NA)
+PlotProteinGO_molc <- function(GO_df, dir_path = NA , data_go_only = FALSE)
 {
 
   GO_df_obj_bio <- toString(GO_df$Gene.ontology..molecular.function.)
@@ -111,11 +118,16 @@ PlotProteinGO_molc <- function(GO_df, dir_path = NA)
     geom_bar(stat="identity", fill="steelblue" , alpha = 0.7) + xlab("Frequency") + ylab("molecular function")+
     geom_text(aes(label = occurences$freq), vjust = -0.03) + theme(axis.text.x = element_text(angle = 90 , hjust = 1 , vjust = 0.2))+
     theme_minimal() +coord_flip() + theme_bw()+theme(text = element_text(size=12, face="bold", colour="black"),axis.text.x = element_text(vjust=2))
-  print (bar_plot)
+
 
   if ( !is.na(dir_path) ) {
     ggsave(paste0(dir_path, "//" ,"GO_plot_molc.jpeg") ,plot = bar_plot , device = "jpeg",dpi = 300,width = 20, height = 15 )
   }
+  
+  if (data_go_only == TRUE) {
+    return(occurences)
+    
+  } else{return(bar_plot)}
 
 }
 
@@ -138,7 +150,7 @@ PlotProteinGO_molc <- function(GO_df, dir_path = NA)
 #'
 #' @export
 #'
-PlotProteinGO_cel <- function(GO_df, dir_path = NA)
+PlotProteinGO_cel <- function(GO_df, dir_path = NA , data_go_only = FALSE)
 {
 
   GO_df_obj_bio <- toString(GO_df$Gene.ontology..cellular.component.)
@@ -174,10 +186,13 @@ PlotProteinGO_cel <- function(GO_df, dir_path = NA)
     theme_minimal() +coord_flip() + theme_bw()+theme(text = element_text(size=12, face="bold", colour="black"),axis.text.x = element_text(vjust=2))
 
 
-  print (bar_plot)
-
   if ( !is.na(dir_path) ) {
     ggsave(paste0(dir_path, "//" ,"GO_plot_cell.jpeg") ,plot = bar_plot , device = "jpeg",dpi = 300,width = 20, height = 10 )
   }
+  
+  if (data_go_only == TRUE) {
+    return(occurences)
+    
+  } else{return(bar_plot)}
 
 }
