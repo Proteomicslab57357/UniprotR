@@ -52,41 +52,58 @@ Goparse <- function(GOObj , index = 3)
 #'
 #' @param GOObj Dataframe.
 #'
-#' @param directorypath path to save excel file containing results returened by the function ( default = NA ).
+#' @param directorypath path to save excel file containig results returened by the function ( default = NA ).
 #'
 #' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
 #'
 #' @export
 #'
-PlotGoInfo <- function(GOObj , directorypath = NULL)
+PlotGoInfo <- function(GOObj , directorypath = NULL,
+                       xlab_Bio = "Biological GO Info",
+                       xlab_Mol = "Molecular GO Info",
+                       xlab_Cel = "Cellular GO Info")
 {
   #Get Biologica process Data
   BiologicalDF <- Goparse(GOObj , 3)
   #Plot top 5
+  
+  if (length(rownames(BiologicalDF)) > 10) {
+    
+  
   BiologicalDF <- BiologicalDF[1:10,]
+  
+  }
+  
   rownames(BiologicalDF) <- c()
   #Plot Biological function
-  BiologicalPlot <- ggplot(data=BiologicalDF, aes(x=reorder(BiologicalDF$Goterm , BiologicalDF$Frequences), y=BiologicalDF$Frequences)) +
-    geom_bar(stat="identity",fill="darkred") + xlab("Biological GO Info") + ylab("Protein count")+
+  BiologicalPlot <- ggplot(data=BiologicalDF, aes(x=reorder(Goterm , BiologicalDF$Frequences), y=BiologicalDF$Frequences)) +
+    geom_bar(stat="identity",fill="darkred") + xlab(xlab_Bio) + ylab("Protein count")+
     theme_bw()+theme(text = element_text(size=12, face="bold", colour="black"),axis.text.x = element_text(vjust=2))
   BiologicalPlot <- BiologicalPlot + coord_flip()
+  
+  
+  
   #Get molecuar function
   MolecularDF <- Goparse(GOObj , 4)
   #Plot top 5
+  if (length(rownames(MolecularDF)) > 10) {
   MolecularDF <- MolecularDF[1:10,]
+  }
   rownames(MolecularDF) <- c()
   MolecularPlot <- ggplot(data=MolecularDF, aes(x=reorder(MolecularDF$Goterm , MolecularDF$Frequences), y=MolecularDF$Frequences)) +
-    geom_bar(stat="identity",fill="darkgreen") + xlab("Molecular GO Info") + ylab("Protein count")+
+    geom_bar(stat="identity",fill="darkgreen") + xlab(xlab_Mol) + ylab("Protein count")+
     theme_bw()+theme(text = element_text(size=12, face="bold", colour="black"),axis.text.x = element_text(vjust=2))
   MolecularPlot <- MolecularPlot + coord_flip()
 
   #Get cellular component
   CellularDF <- Goparse(GOObj , 5)
   #Plot top 5
+  if (length(rownames(CellularDF) )  > 10 ){
   CellularDF <- CellularDF[1:10,]
+  }
   rownames(CellularDF) <- c()
   CellularPlot <- ggplot(data=CellularDF, aes(x=reorder(CellularDF$Goterm , CellularDF$Frequences), y=CellularDF$Frequences)) +
-    geom_bar(stat="identity",fill="darkblue") + xlab("Cellular GO Info") + ylab("Protein count")+
+    geom_bar(stat="identity",fill="darkblue") + xlab(xlab_Cel) + ylab("Protein count")+
     theme_bw()+theme(text = element_text(size=12, face="bold", colour="black"),axis.text.x = element_text(vjust=2))
   CellularPlot <- CellularPlot + coord_flip()
 
@@ -107,8 +124,9 @@ PlotGoInfo <- function(GOObj , directorypath = NULL)
 
   GoInfoPlot <- ggarrange(Goplots , GoSummary , ncol = 2 ,  align = "h")
   if (!is.null(directorypath)){
-    ggsave(plot = GoInfoPlot , filename = paste0(directorypath ,"//" ,"GoPlotInfo.jpeg") , device = "jpeg" , dpi = 320 , width = 16 , height = 10)
-    ggsave(plot = GoInfoPlot , filename = paste0(directorypath ,"//" ,"GoPlotInfo.tiff") , device = "tiff" , dpi = 320 , width = 16 , height = 10)
+    ggsave(plot = GoInfoPlot , filename = paste0(directorypath ,"//" ,"GoPlotInfo.jpeg") , dpi = 320 , width = 16 , height = 10)
+    ggsave(plot = GoInfoPlot , filename = paste0(directorypath ,"//" ,"GoPlotInfo.tiff") , dpi = 320 , width = 16 , height = 10)
 
   }
+  return(GoInfoPlot)
 }
