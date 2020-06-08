@@ -20,7 +20,7 @@ PlotProteinTaxa <- function(ProteinDataObject , directorypath = NULL)
 
   TaxaPlot <- ggplot(ChromoCount , aes(x = reorder(ChromoCount$`ProteinDataObject$Organism` , ChromoCount$V1) , y = ChromoCount$V1)) +
     geom_bar(aes(fill = ChromoCount$`ProteinDataObject$Organism`), stat = "identity" , alpha = 0.7) + ylab("Frequency") +guides(fill=guide_legend(title="Organisms"))+
-    geom_text(aes(label = ChromoCount$freq), vjust = -0.3) + theme_bw() + theme(axis.title.x  =  element_blank() , text = element_text(size=14, face="bold", colour="black"))
+    geom_text(aes(label = ChromoCount$freq), vjust = -0.3) + theme_bw() + theme(axis.text.x = element_text(angle = 45),axis.title.x  =  element_blank() , text = element_text(size=11, face="bold", colour="black"))
   plot(TaxaPlot)
   print(ChromoCount)
   if (!is.null(directorypath)){

@@ -6,7 +6,7 @@
 #'
 #' @param ProteinDataObject input a Dataframe returned from GetNamesTaxa function
 #'
-#' @param directorypath path to save excel file containing results returened by the function.
+#' @param directorypath path to save excel file containig results returened by the function.
 #'
 #' @author Mohmed Soudy and Ali Mostafa
 #'

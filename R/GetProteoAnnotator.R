@@ -22,7 +22,11 @@
 
 
 GetProteinAnnontate <- function(ProteinAccList,columns){
-
+  if(!has_internet())
+  {
+    message("Please connect to the internet as the package requires internect connection.")
+    return()
+  }
   # the core link
   baseUrl <- "http://www.uniprot.org/uniprot/"
 
@@ -39,8 +43,15 @@ GetProteinAnnontate <- function(ProteinAccList,columns){
 
       {
         #to see if Request == 200 or not
-        Request <- GET(paste0(baseUrl , ProteinAcc,".xml"))
-
+        Request <- tryCatch(
+          {
+            GET(paste0(baseUrl , ProteinAcc,".xml") , timeout(10))
+          },error = function(cond)
+          {
+            message("Internet connection problem occurs and the function will return the original error")
+            message(cond)
+          }
+        )
         ProteinName_url <- paste0("?query=accession:",ProteinAcc,"&format=tab&columns=",col)
         RequestUrl <- paste0(baseUrl , ProteinName_url)
 

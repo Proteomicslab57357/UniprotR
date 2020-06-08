@@ -2,9 +2,9 @@
 #'
 #' This Function is used to plot Gene ontolgy summary in the data of the accession/s.
 #'
-#' @usage plotGoannotation(ProteinDataObject,directorypath = NULL)
+#' @usage plotGoannotation(GOObj,directorypath = NULL)
 #'
-#' @param ProteinDataObject input a Dataframe returned from GetProteinGOInfo function
+#' @param GOObj Dataframe.
 #'
 #' @param directorypath path to save files returened by the function.
 #'
@@ -14,7 +14,7 @@
 #' 
 
 
-plotGoannotation <- function(ProteinDataObject,directorypath = NULL)
+plotGoannotation <- function(GOObj,directorypath = NULL)
 {
   
   Goparse <- function(GOObj , index = 3)
@@ -50,7 +50,7 @@ plotGoannotation <- function(ProteinDataObject,directorypath = NULL)
   }
   
   #Get Biologica process Data
-  BiologicalDF <- Goparse(ProteinDataObject , 3)
+  BiologicalDF <- Goparse(GOObj , 3)
   #Plot top 10
   
   if (length(rownames(BiologicalDF)) > 10){
@@ -64,7 +64,7 @@ plotGoannotation <- function(ProteinDataObject,directorypath = NULL)
   #Get molecuar function
   
   
-  MolecularDF <- Goparse(ProteinDataObject , 4)
+  MolecularDF <- Goparse(GOObj , 4)
   #Plot top 10
   
   if (length(rownames(MolecularDF)) > 10){
@@ -75,7 +75,7 @@ plotGoannotation <- function(ProteinDataObject,directorypath = NULL)
   MolecularDF <- na.omit(MolecularDF)
 
   #Get cellular component
-  CellularDF <- Goparse(ProteinDataObject , 5)
+  CellularDF <- Goparse(GOObj , 5)
   #Plot top 10
   
   if (length(rownames(CellularDF)) > 10){

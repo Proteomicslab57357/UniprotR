@@ -8,7 +8,7 @@
 #'
 #' @param ProteinAccList Vector of UniProt Accession/s
 #'
-#' @param directorypath path to save excel file containing results returened by the function.
+#' @param directorypath path to save excel file containig results returened by the function.
 #'
 #'
 #' @return DataFrame where rows names are the accession
@@ -23,6 +23,12 @@
 #' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
 
 GetExpression <- function(ProteinAccList , directorypath = NULL){
+  
+  if(!has_internet())
+  {
+    message("Please connect to the internet as the package requires internect connection.")
+    return()
+  }
 
     # Expression information to be collected
     columns <- c("comment(DEVELOPMENTAL STAGE),comment(INDUCTION),comment(TISSUE SPECIFICITY)")
@@ -31,7 +37,15 @@ GetExpression <- function(ProteinAccList , directorypath = NULL){
     for (ProteinAcc in ProteinAccList)
     {
       #to see if Request == 200 or not
-      Request <- GET(paste0(baseUrl , ProteinAcc,".xml"))
+      Request <- tryCatch(
+        {
+          GET(paste0(baseUrl , ProteinAcc,".xml") , timeout(10))
+        },error = function(cond)
+        {
+          message("Internet connection problem occurs and the function will return the original error")
+          message(cond)
+        }
+      )  
 
       #this link return information in tab formate (format = tab)
       #columns = what to return from all of the information (see: https://www.uniprot.org/help/uniprotkb_column_names)
@@ -45,6 +59,7 @@ GetExpression <- function(ProteinAccList , directorypath = NULL){
         ProteinDataTable <- tryCatch(read.csv(RequestUrl, header = TRUE, sep = '\t'), error=function(e) NULL)
         if (!is.null(ProteinDataTable))
         {
+          ProteinDataTable <- ProteinDataTable[1,]
           ProteinInfoParsed <- as.data.frame(ProteinDataTable,row.names = ProteinAcc)
           # add Dataframes together if more than one accession
           ProteinInfoParsed_total <- rbind(ProteinInfoParsed_total, ProteinInfoParsed)

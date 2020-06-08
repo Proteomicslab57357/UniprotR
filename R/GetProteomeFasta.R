@@ -6,7 +6,7 @@
 #'
 #' @param ProteomeID Proteome ID from UniProt
 #'
-#' @param directorypath path to save FASTA file containing results returened by the function.
+#' @param directorypath path to save FASTA file containig results returened by the function.
 #'
 #' @note The function Download fasta format of proteome.
 #'
@@ -15,8 +15,24 @@
 #' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
 GetProteomeFasta <- function(ProteomeID , directorypath = NULL)
 {
+  if(!has_internet())
+  {
+    message("Please connect to the internet as the package requires internect connection.")
+    return()
+  }
   baseUrl <- "https://www.uniprot.org/uniprot/?query=proteome:"
-  Request <- GET(paste0(baseUrl , ProteomeID,"&format=fasta"))
+  Request <- tryCatch(
+    {
+      myOpts <- curlOptions(connecttimeout = 200)
+      
+      
+      GET(paste0(baseUrl , ProteomeID,"&format=fasta") , timeout(60))
+    },error = function(cond)
+    {
+      message("Internet connection problem occurs and the function will return the original error")
+      message(cond)
+    }
+  )
   if (Request$status_code == 200)
   {
     download.file(Request$url ,paste0(directorypath ,"/" , ProteomeID, ".fasta"))
@@ -25,6 +41,8 @@ GetProteomeFasta <- function(ProteomeID , directorypath = NULL)
     HandleBadRequests(Request$status_code)
   }
 }
+
+
 
 
 

@@ -14,6 +14,7 @@
 PlotproteinExist <- function(ProteinDataObject , directorypath = NULL)
 {
   Proteinexistence <- c("Evidence at protein level" , "Evidence at transcript level" , "Inferred from homology" , "Predicted" , "Uncertain")
+  ProteinDataObject <- ProteinDataObject[!is.na(ProteinDataObject$Protein.existence),]
   ProteinDataObject$Protein.existence <- factor(ProteinDataObject$Protein.existence , levels = Proteinexistence)
 
   Exist <- ggplot(data = ProteinDataObject) +

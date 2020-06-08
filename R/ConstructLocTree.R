@@ -6,7 +6,7 @@
 #'
 #' @param ProteinDataObject input a Dataframe returned from GetNamesTaxa function
 #'
-#' @param directorypath path to save txt file containing results returened by the function.
+#' @param directorypath path to save txt file containig results returened by the function.
 #'
 #' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
 #'

@@ -6,7 +6,7 @@
 #'
 #' @param ProteinAccList Vector of UniProt Accession/s
 #'
-#' @param directorypath path to save excel file containing results returened by the function
+#' @param directorypath path to save excel file containig results returened by the function
 #'
 #' @return DataFrame where rows names are the accession
 #'      and columns contains the information retrieved from the UniProt
@@ -20,11 +20,24 @@
 #' @export
 GetSeqLength <- function(ProteinAccList , directorypath = NULL)
 {
+  if(!has_internet())
+  {
+    message("Please connect to the internet as the package requires internect connection.")
+    return()
+  }
   BaseUrl <- "https://www.uniprot.org/uniparc/?query="
   ProteinInfoParsed_total = data.frame()
   for (Accession in ProteinAccList){
     RequestURL <- paste0(BaseUrl , Accession ,"&format=tab&force=true&columns=length")
-    Request <- GET(RequestURL)
+    Request <- tryCatch(
+      {
+        GET(RequestURL, timeout(60))
+      },error = function(cond)
+      {
+        message("Internet connection problem occurs and the function will return the original error")
+        message(cond)
+      }
+    )
     if (Request$status_code == 200) {
       ProteinDataTable <- tryCatch(read.csv(RequestURL,
                                             header = TRUE, sep = "\t"), error = function(e) NULL)

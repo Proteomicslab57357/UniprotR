@@ -14,6 +14,7 @@
 PlotproteinScore <- function(ProteinDataObject,directorypath = NULL)
 {
   ProteineScore <- c("1 out of 5" , "2 out of 5" , "3 out of 5" , "4 out of 5" , "5 out of 5")
+  ProteinDataObject <- ProteinDataObject[!is.na(ProteinDataObject$Annotation),]
   ProteinDataObject$Annotation <- factor(ProteinDataObject$Annotation , levels = ProteineScore)
 
   Annotation <- ggplot(data = ProteinDataObject) +
