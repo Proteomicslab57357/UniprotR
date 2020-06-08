@@ -22,9 +22,7 @@ GetProteomeFasta <- function(ProteomeID , directorypath = NULL)
   }
   baseUrl <- "https://www.uniprot.org/uniprot/?query=proteome:"
   Request <- tryCatch(
-    {
-      myOpts <- curlOptions(connecttimeout = 200)
-      
+    {      
       
       GET(paste0(baseUrl , ProteomeID,"&format=fasta") , timeout(60))
     },error = function(cond)
