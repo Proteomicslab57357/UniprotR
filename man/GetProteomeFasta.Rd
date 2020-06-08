@@ -9,7 +9,7 @@ GetProteomeFasta(ProteomeID , directorypath = NULL)
 \arguments{
 \item{ProteomeID}{Proteome ID from UniProt}
 
-\item{directorypath}{path to save FASTA file containing results returened by the function.}
+\item{directorypath}{path to save FASTA file containig results returened by the function.}
 }
 \description{
 The function is work to retrieve proteome information in FASTA format based on proteome id.
