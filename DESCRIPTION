@@ -1,6 +1,6 @@
 Package: UniprotR
 Title: Retrieving Information of Proteins from Uniprot
-Version: 1.3.0
+Version: 1.3.1
 Authors@R: c(person("Mohamed", "Soudy", email = "MohmedSoudy2009@gmail.com", role=c("aut", "cre")), person("Ali", "Mostafa", email = "ali.mo.anwar@std.agr.cu.edu.eg", role = "aut"))
 Author: Mohamed Soudy [aut, cre],
   Ali Mostafa [aut]
