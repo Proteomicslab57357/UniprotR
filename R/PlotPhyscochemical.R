@@ -18,16 +18,16 @@ PlotPhysicochemical <- function(SeqDataObjPath , directorypath = NULL)
 
   #Group data frame by charge
   ChargeGroup <- rep("Negative" , dim(result)[1])
-  positive_index <- which(result$Sequence_AA_CHARGE > 0)
+  positive_index <- which(result$Sequence_aa_charge > 0)
   ChargeGroup[positive_index] <- "Positive"
   result <- cbind(result , ChargeGroup)
 
   #Get charge Sign ratios
-  Chargecount <- table(sign(result$Sequence_AA_CHARGE))
+  Chargecount <- table(sign(result$Sequence_aa_charge))
   if (length(Chargecount) == 1){
     Chargecount <<- as.table(cbind(Chargecount , 0));
   }
-  Chargeratio <- table(sign(result$Sequence_AA_CHARGE))/dim(result)[1]*100
+  Chargeratio <- table(sign(result$Sequence_aa_charge))/dim(result)[1]*100
   if (length(Chargeratio) == 1){
     Chargeratio <<- as.table(cbind(Chargeratio , 0));
   }
@@ -35,16 +35,16 @@ PlotPhysicochemical <- function(SeqDataObjPath , directorypath = NULL)
   Chargedf = data.frame(x = c("Negative" , "Positive") , y = Chargeratio , z = Chargecount)
   #Group data frame by GRAVY charge
   GravyGroup <- rep("Negative" , dim(result)[1])
-  positive_index <- which(result$Sequence_AA_GRAVY > 0)
+  positive_index <- which(result$Sequence_aa_gravy > 0)
   GravyGroup[positive_index] <- "Positive"
   result <- cbind(result , GravyGroup)
   #Get GRAVY sign ratios
-  GRAVYcount <- table(sign(result$Sequence_AA_GRAVY))
+  GRAVYcount <- table(sign(result$Sequence_aa_gravy))
   if (length(GRAVYcount) == 1){
     GRAVYcount <- as.table(cbind(GRAVYcount , 0));
   }
 
-  GRAVYratio <-  table(sign(result$Sequence_AA_GRAVY))/dim(result)[1]*100
+  GRAVYratio <-  table(sign(result$Sequence_aa_gravy))/dim(result)[1]*100
   if (length(GRAVYratio) == 1){
     GRAVYratio <- as.table(cbind(GRAVYratio , 0));
   }
@@ -52,7 +52,7 @@ PlotPhysicochemical <- function(SeqDataObjPath , directorypath = NULL)
   GRAVYdf = data.frame(x = c("Negative" , "Positive") , y = GRAVYratio , z = GRAVYcount)
 
   #Charge plot
-  Chargebarplot <- ggplot(result, aes(x=as.numeric(reorder(rownames(result) , result$Sequence_AA_CHARGE)), y=result$Sequence_AA_CHARGE, label=rownames(result))) +
+  Chargebarplot <- ggplot(result, aes(x=as.numeric(reorder(rownames(result) , result$Sequence_aa_charge)), y=result$Sequence_aa_charge, label=rownames(result))) +
     geom_bar(stat='identity', aes(fill=result$ChargeGroup)) + theme_classic() + theme(axis.title.x = element_blank()  , axis.ticks.x = element_blank() , plot.title = element_text(hjust = 0.5))+ylab("Protein charge")+
     guides(fill=guide_legend(title="Groups"))+ggtitle("Sequence Charge") + scale_x_continuous(limits = c(0,  dim(result)[1]), expand = c(0, 0))
   Chargebarplot
@@ -64,7 +64,7 @@ PlotPhysicochemical <- function(SeqDataObjPath , directorypath = NULL)
   Chargeframeplot
 
   #GRAVY plot
-  GRAVYbarplot <- ggplot(result, aes(x=as.numeric(reorder(rownames(result), result$Sequence_AA_GRAVY)), y=result$Sequence_AA_GRAVY, label=rownames(result))) +
+  GRAVYbarplot <- ggplot(result, aes(x=as.numeric(reorder(rownames(result), result$Sequence_aa_gravy)), y=result$Sequence_aa_gravy, label=rownames(result))) +
     geom_bar(stat='identity', aes(fill=result$GravyGroup)) + theme_classic() + theme(axis.title.x = element_blank() , axis.ticks.x = element_blank() , plot.title = element_text(hjust = 0.5))+ylab("GRAVY index")+
     guides(fill=guide_legend(title="Groups"))+ggtitle("Sequence GRAVY index") + scale_x_continuous(limits = c(0,  dim(result)[1]), expand = c(0, 0))
   GRAVYbarplot
@@ -81,9 +81,9 @@ PlotPhysicochemical <- function(SeqDataObjPath , directorypath = NULL)
 
 
   #Plot acidic vs Basic Groups
-  AcidicBasic <- c(result$Sequence_AA_ACIDIC , result$Sequence_AA_BASIC)
-  AcidicBasicGroup <- rep("Acidic" , length(result$Sequence_AA_ACIDIC))
-  AcidicBasicGroup <- c(AcidicBasicGroup , rep("Basic" , length(result$Sequence_AA_BASIC)))
+  AcidicBasic <- c(result$Sequence_aa_acidic , result$Sequence_aa_basic)
+  AcidicBasicGroup <- rep("Acidic" , length(result$Sequence_aa_acidic))
+  AcidicBasicGroup <- c(AcidicBasicGroup , rep("Basic" , length(result$Sequence_aa_basic)))
   AcidicBasicframe <- data.frame(x = AcidicBasic , y = AcidicBasicGroup)
 
 
