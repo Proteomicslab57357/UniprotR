@@ -19,7 +19,8 @@ PlotproteinStatus <- function(ProteinDataObject,directorypath = NULL)
     theme_bw()+theme(text = element_text(size=17, face="bold", colour="black"),axis.text.x = element_text(vjust=2))+
     scale_fill_brewer(palette="Blues" , direction = -1)
 
-
+  plot(Status)
+  
   if(!is.null(directorypath))
   {
     ggsave(paste0(directorypath , "/"  , "Protein Status.jpeg") , plot = Status , device = "jpeg" , dpi = 320, height =  11 , width = 10)
