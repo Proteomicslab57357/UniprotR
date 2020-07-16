@@ -65,4 +65,5 @@ PlotChromosomeInfo <- function(ProteinDataObject,directorypath = NULL)
     ggsave(paste0(directorypath , "/"  , "Chromosoes Summary.jpeg") , plot = ChromoSummary , device = "jpeg" , dpi = 320, height =  11 , width = 10)
     ggsave(paste0(directorypath , "/"  , "Chromosoes Summary.tiff") , plot = ChromoSummary , device = "tiff" , dpi = 320, height =  11 , width = 10)
   }
+  plot(ChromoSummary)
 }
