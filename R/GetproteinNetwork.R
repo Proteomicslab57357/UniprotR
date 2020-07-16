@@ -16,12 +16,12 @@
 #' @export
 GetproteinNetwork <- function(ProteinAccList , directorypath = NULL)
 {
-  LogFile <- paste0(directorypath,"NetworkLog.txt")
+  LogFile <- paste0(directorypath, "/","NetworkLog.txt")
   
   pdf(paste0(directorypath , "/","Protin Network.pdf"))
   baseUrl <- "https://string-db.org/api/image/network?identifiers="
   Accessions <- NULL
-  cat(paste0("Run started at: " , date), file = LogFile, append = TRUE, sep = "\n")
+  cat(paste0("Run started at: " , date()), file = LogFile, append = TRUE, sep = "\n")
   
   for (identifier in ProteinAccList)
   {
@@ -30,7 +30,7 @@ GetproteinNetwork <- function(ProteinAccList , directorypath = NULL)
     if (Request$status_code == 200)
     {
       Network <- image_read(ProteinString)
-      ProteinFrame <- read.csv(URLencode(paste0("https://www.uniprot.org/uniprot/?query=accession:" ,identifier ,"&format=tab&columns=protein names")))
+      ProteinFrame <- read.csv(URLencode(paste0("https://www.uniprot.org/uniprot/?query=accession:" ,identifier ,"&format=tab&columns=protein names")) , spe = "\t")
       ProteinName <- as.character(ProteinFrame$Protein.names)
       plot(Network)
       title(list(paste0(identifier ,":" ,  ProteinName),cex = 0.4, font = 1))
@@ -48,5 +48,5 @@ GetproteinNetwork <- function(ProteinAccList , directorypath = NULL)
   title(list("Whole Protein Network", cex = 1,
              col = "black", font = 1))
   dev.off()
-  cat(paste0("Run Finished at: " , date), file = LogFile, append = TRUE, sep = "\n")
+  cat(paste0("Run Finished at: " , date()), file = LogFile, append = TRUE, sep = "\n")
 }
