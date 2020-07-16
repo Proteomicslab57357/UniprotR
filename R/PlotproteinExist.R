@@ -23,7 +23,7 @@ PlotproteinExist <- function(ProteinDataObject , directorypath = NULL)
     theme_bw()+theme(text = element_text(size=14, face="bold", colour="black"),axis.text.x = element_text(hjust = 1 , angle = 45))+
     scale_fill_brewer(palette="Blues" , direction = -1)
 
-
+  plot(Exist)
   if(!is.null(directorypath))
   {
     ggsave(paste0(directorypath , "/"  , "Protein existence.jpeg") , plot = Exist , device = "jpeg" , dpi = 320, height =  11 , width = 10)
