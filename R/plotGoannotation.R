@@ -21,7 +21,7 @@ plotGoannotation <- function(GOObj,directorypath = NULL)
   {
     GO_df_obj_bio <- toString(na.omit(GOObj[,index]))
     
-    GO_df_obj_bio <- strsplit(GO_df_obj_bio,";|,")
+    GO_df_obj_bio <- strsplit(GO_df_obj_bio,";")
     
     GO_df_obj_bio_df <- data.frame(GO_df_obj_bio)
     
