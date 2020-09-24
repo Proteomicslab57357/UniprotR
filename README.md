@@ -9,7 +9,7 @@
 ![](https://i.ibb.co/jDS7Khq/pinterest-profile-image.png)
 
 # Installation
-
+Package is now avilable online at https://proteomicslab57357.shinyapps.io/UniprotR/
 ```R
 install.packages("UniprotR")
 ```
@@ -67,7 +67,6 @@ For bugs and suggestions, the most effective way is by raising an issue on the g
 # Future plans
 
 - Add pathway analysis workflow that connects to KEGG and reactome.
-- Launch a a web serivce for UniprotR to facilitate user system interaction
 # Citation
 
 Soudy, Mohamed, Ali Mostafa Anwar, Eman Ali Ahmed, Aya Osama, Shahd Ezzeldin, Sebaey Mahgoub, and Sameh Magdeldin. 2020. “UniprotR: Retrieving and Visualizing Protein Sequence and Functional Information from Universal Protein Resource (UniProt Knowledgebase).” Journal of Proteomics 213 (February). Elsevier B.V. doi:10.1016/j.jprot.2019.103613.
