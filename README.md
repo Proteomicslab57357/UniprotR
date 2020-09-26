@@ -6,10 +6,12 @@
 [![](https://badgen.net/badge/Citations/3/:color?icon=github)](https://doi.org/10.1016/j.jprot.2019.103613)
 
 
+
 ![](https://i.ibb.co/jDS7Khq/pinterest-profile-image.png)
 
 # Installation
-Package is now avilable online at https://proteomicslab57357.shinyapps.io/UniprotR/
+The package is avilable now online at https://proteomicslab57357.shinyapps.io/UniprotR/
+
 ```R
 install.packages("UniprotR")
 ```
