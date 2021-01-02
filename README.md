@@ -28,10 +28,10 @@ For the documentation see: [UniprotR Documentation](https://cran.r-project.org/w
 
 # Package information
 
-- Version: **v1.3.1**
+- Version: **v2.0.1**
 - License: GPL-3
 - Encoding: UTF-8
-- Imports: utils , grDevices , graphics, httr , plyr , dplyr , scales , stats , magrittr , magick , data.tree , ggplot2 , tidyverse , grid , gridExtra , ggpubr , alakazam
+- Imports: 	utils , grDevices , stats , grid , graphics , httr , plyr , dplyr , scales , magrittr , magick , data.tree , ggplot2 , tidyverse , gridExtra , ggpubr , alakazam, curl, networkD3, stringr , qdapRegex , htmlwidgets, ReactomePA , gprofiler2
 - NeedsCompilation: no
 - Repository: CRAN
 - link to package on CRAN: [UniprotR](https://cran.r-project.org/package=UniprotR)
@@ -48,15 +48,38 @@ Accessions <-GetAccessionList("https://s3.amazonaws.com/csvpastebin/uploads/9571
 #Get Taxanomy Information 
 TaxaObj <- GetNamesTaxa(Accessions) 
 #Visualize Chromosomes localization
-PlotSummaryInfo(TaxaObj)
+PlotChromosomeInfo(TaxaObj)
+#Visualize protein's gene name as Network 
+PlotGenesNetwork(TaxaObj)
+```
+
+**Gene ontology of protein list**
+```R
 #Get Gene ontolgy Information 
 GeneOntologyObj <- GetProteinGOInfo(Accessions) 
-#Plot Biological process information 
-PlotProteinGO_bio(GeneOntologyObj) 
-#Plot molecular function information 
-PlotProteinGO_molc(GeneOntologyObj)
+#Plot Biological process information top 10 go terms  
+PlotGOBiological(GeneOntologyObj, Top = 10) 
+#Plot molecular function information top 20 go terms
+Plot.GOMolecular(GeneOntologyObj, Top = 20)
 #Plot subcellualr localization information 
-PlotProteinGO_cel(GeneOntologyObj) 
+Plot.GOSubCellular(GeneOntologyObj) 
+#Combine Gene ontology plots into one plot 
+PlotGoInfo(GeneOntologyObj)
+```
+
+**Enrichment analysis using KEGG, Reactome of protein list**
+```R
+Enrichment.gprofiler(Accessions)
+```
+
+**Get diseases associated with protein list**
+```R
+PathologyObj <- GetPathology_Biotech(Accessions)
+Diseases <- Get.diseases(PathologyObj)
+```
+
+**Protein- Protein interaction using STRING**
+```R
 #Get Protein-Protein Interaction within input data 
 #Path example = "E:/Users/Network.pdf"
 GetproteinNetwork(Accessions , Path to save your pdf file) 
