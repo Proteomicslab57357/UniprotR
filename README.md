@@ -4,7 +4,7 @@
 [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/UniprotR)](https://CRAN.R-project.org/package=UniprotR) 
 [![](https://www.r-pkg.org/badges/version/UniprotR?color=green)](https://CRAN.R-project.org/package=UniprotR) 
 [![](https://img.shields.io/badge/doi-https%3A%2F%2Fdoi.org%2F10.1016%2Fj.jprot.2019.103613-red)](https://doi.org/10.1016/j.jprot.2019.103613)
-[![](https://badgen.net/badge/Citations/4/:color?icon=github)](https://doi.org/10.1016/j.jprot.2019.103613)
+[![](https://badgen.net/badge/Citations/5/:color?icon=github)](https://doi.org/10.1016/j.jprot.2019.103613)
 
 
 
