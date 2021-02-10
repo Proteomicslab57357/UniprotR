@@ -28,12 +28,6 @@ For the documentation see: [UniprotR Documentation](https://cran.r-project.org/w
 
 # Package information
 
-- Version: **v2.0.1**
-- License: GPL-3
-- Encoding: UTF-8
-- Imports: 	utils , grDevices , stats , grid , graphics , httr , plyr , dplyr , scales , magrittr , magick , data.tree , ggplot2 , tidyverse , gridExtra , ggpubr , alakazam, curl, networkD3, stringr , qdapRegex , htmlwidgets, ReactomePA , gprofiler2
-- NeedsCompilation: no
-- Repository: CRAN
 - link to package on CRAN: [UniprotR](https://cran.r-project.org/package=UniprotR)
 
 
