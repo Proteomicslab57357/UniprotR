@@ -63,7 +63,7 @@ PlotGoInfo(GeneOntologyObj)
 
 **Enrichment analysis using KEGG, Reactome of protein list**
 ```R
-Enrichment.gprofiler(Accessions)
+Pathway.Enr(Accessions)
 ```
 
 **Get diseases associated with protein list**
