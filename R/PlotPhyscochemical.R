@@ -25,11 +25,11 @@ PlotPhysicochemical <- function(SeqDataObjPath , directorypath = NULL)
   #Get charge Sign ratios
   Chargecount <- table(sign(result$Sequence_aa_charge))
   if (length(Chargecount) == 1){
-    Chargecount <<- as.table(cbind(Chargecount , 0));
+    Chargecount <- as.table(cbind(Chargecount , 0));
   }
   Chargeratio <- table(sign(result$Sequence_aa_charge))/dim(result)[1]*100
   if (length(Chargeratio) == 1){
-    Chargeratio <<- as.table(cbind(Chargeratio , 0));
+    Chargeratio <- as.table(cbind(Chargeratio , 0));
   }
   #Construct Charge dataframe
   Chargedf = data.frame(x = c("Negative" , "Positive") , y = Chargeratio , z = Chargecount)

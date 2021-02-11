@@ -17,8 +17,6 @@
 #'
 #' @note The function also, Creates a csv file with the retrieved information.
 #'
-#' @examples Obj <- GetCross_references_Information("O14520")
-#'
 #' @export
 #'
 #' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
@@ -48,11 +46,15 @@ GetCross_references_Information <- function(ProteinAccList , directorypath = NUL
         message(cond)
       }
     )  
-    print(Request)
     #this link return information in tab formate (format = tab)
     ProteinName_url <- paste0("?query=accession:",ProteinAcc,"&format=tab&columns=",Colnames)
     RequestUrl <- paste0(baseUrl , ProteinName_url)
     RequestUrl <- URLencode(RequestUrl)
+    if (length(Request) == 0)
+    {
+      message("Internet connection problem occurs")
+      return()
+    }
     if (Request$status_code == 200){
       # parse the information in DataFrame
       ProteinDataTable <- tryCatch(read.csv(RequestUrl, header = TRUE, sep = '\t'), error=function(e) NULL)

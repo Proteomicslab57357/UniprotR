@@ -43,6 +43,11 @@ GetStructureInfo <- function(ProteinAccList, directorypath = NULL)
     #this link return information in tab formate (format = tab)
     ProteinName_url <- paste0("?query=accession:",ProteinAcc,"&format=tab&columns=",Colnames)
     RequestUrl <- paste0(baseUrl , ProteinName_url)
+    if (length(Request) == 0)
+    {
+      message("Internet connection problem occurs")
+      return()
+    }
     if (Request$status_code == 200){
       # parse the information in DataFrame
       ProteinDataTable <- tryCatch(read.table(RequestUrl, header = TRUE, sep = '\t'), error=function(e) NULL)

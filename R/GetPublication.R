@@ -13,8 +13,6 @@
 #' @return DataFrame where rows names are the accession
 #'      and columns contains the Publication of protein from the UniProt
 #'
-#' @examples Obj <- GetPublication("O14520")
-#'
 #' @note The function also, Creates a csv file with the retrieved information.
 #'
 #' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
@@ -37,7 +35,7 @@ GetPublication <- function(ProteinAccList, directorypath = NULL)
     #to see if Request == 200 or not
     Request <- tryCatch(
       {
-        GET(paste0(baseUrl , ProteinAcc,".xml") , timeout(60))
+        GET(paste0(baseUrl , ProteinAcc,".xml"))
       },error = function(cond)
       {
         message("Internet connection problem occurs and the function will return the original error")
@@ -48,6 +46,11 @@ GetPublication <- function(ProteinAccList, directorypath = NULL)
     ProteinName_url <- paste0("?query=accession:",ProteinAcc,"&format=tab&columns=",Colnames)
     RequestUrl <- paste0(baseUrl , ProteinName_url)
     RequestUrl <- URLencode(RequestUrl)
+    if (length(Request) == 0)
+    {
+      message("Internet connection problem occurs")
+      return()
+    }
     
     if (Request$status_code == 200){
       # parse the information in DataFrame

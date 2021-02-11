@@ -31,6 +31,11 @@ GetProteomeInfo <- function(ProteomeID , directorypath = NULL)
     }
   )
   ProteinInfoParsed <- data.frame()
+  if (length(Request) == 0)
+  {
+    message("Internet connection problem occurs")
+    return()
+  }
   if (Request$status_code == 200)
     {
     # parse the information in DataFrame

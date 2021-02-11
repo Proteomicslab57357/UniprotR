@@ -37,7 +37,7 @@ GetMiscellaneous <- function(ProteinAccList , directorypath = NULL){
     #to see if Request == 200 or not
     Request <- tryCatch(
       {
-        GET(paste0(baseUrl , ProteinAcc,".xml") , timeout(10))
+        GET(paste0(baseUrl , ProteinAcc,".xml") , timeout(7))
       },error = function(cond)
       {
         message("Internet connection problem occurs and the function will return the original error")
@@ -50,6 +50,11 @@ GetMiscellaneous <- function(ProteinAccList , directorypath = NULL){
 
     RequestUrl <- paste0(baseUrl , ProteinName_url)
     RequestUrl <- URLencode(RequestUrl)
+    if (length(Request) == 0)
+    {
+      message("Internet connection problem occurs")
+      return()
+    }
     if (Request$status_code == 200){
       # parse the information in DataFrame
       ProteinDataTable <- tryCatch(read.csv(RequestUrl, header = TRUE, sep = '\t'), error=function(e) NULL)

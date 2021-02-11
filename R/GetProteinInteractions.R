@@ -36,7 +36,7 @@ GetProteinInteractions <- function(ProteinAccList , directorypath = NULL)
     #to see if Request == 200 or not
     Request <- tryCatch(
       {
-        GET(paste0(baseUrl , ProteinAcc,".xml") , timeout(60))
+        GET(paste0(baseUrl , ProteinAcc,".xml") , timeout(7))
       },error = function(cond)
       {
         message("Internet connection problem occurs and the function will return the original error")
@@ -46,6 +46,11 @@ GetProteinInteractions <- function(ProteinAccList , directorypath = NULL)
     #this link return information in tab formate (format = tab)
     ProteinName_url <- paste0("?query=accession:",ProteinAcc,"&format=tab&columns=",Colnames)
     RequestUrl <- paste0(baseUrl , ProteinName_url)
+    if (length(Request) == 0)
+    {
+      message("Internet connection problem occurs")
+      return()
+    }
     RequestUrl <- URLencode(RequestUrl)
     
     if (Request$status_code == 200){

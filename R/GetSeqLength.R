@@ -31,13 +31,18 @@ GetSeqLength <- function(ProteinAccList , directorypath = NULL)
     RequestURL <- paste0(BaseUrl , Accession ,"&format=tab&force=true&columns=length")
     Request <- tryCatch(
       {
-        GET(RequestURL, timeout(60))
+        GET(RequestURL)
       },error = function(cond)
       {
         message("Internet connection problem occurs and the function will return the original error")
         message(cond)
       }
     )
+    if (length(Request) == 0)
+    {
+      message("Internet connection problem occurs")
+      return()
+    }
     if (Request$status_code == 200) {
       ProteinDataTable <- tryCatch(read.csv(RequestURL,
                                             header = TRUE, sep = "\t"), error = function(e) NULL)

@@ -24,10 +24,6 @@ data see https://www.uniprot.org/help/uniprotkb_column_names.
 \note{
 The function also, Creates a csv file with the retrieved information.
 }
-\examples{
-Obj <- GetCross_references_Information("O14520")
-
-}
 \author{
 Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
 }

@@ -7,7 +7,7 @@
 PlotGoInfo(GOObj , directorypath = NULL)
 }
 \arguments{
-\item{GOObj}{Dataframe.}
+\item{GOObj}{Dataframe retrieved from UniprotR Function "GetProteinGOInfo".}
 
 \item{directorypath}{path to save excel file containig results returened by the function ( default = NA ).}
 }

@@ -1,0 +1,321 @@
+#' Connect and parse UniProt information
+#'
+#' This function is used for Enrichment analysis of given list of genes or proteins 
+#'
+#' @usage Pathway.Enr(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+#'
+#' @param Accs Vector of UniProt Accession/s or genes 
+#' 
+#' @param OS  organism name Example: human - 'hsapiens', mouse - 'mmusculus'
+#' 
+#' @param p_value custom p-value threshold for significance, default = 0.05
+#' 
+#' @param directorypath Path to save output plot 
+#'
+#' @export
+#'
+#' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
+Pathway.Enr <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+{
+  
+  AccList <- as.character(unique(Accs))
+  Enrich.object <- gost(query = Accs, sources = c('KEGG', 'REAC'), organism = OS, user_threshold = p_value, evcodes = T)
+  
+  Enrich.Res <- Enrich.object$result
+  Enrich.Res$source <- ifelse(Enrich.Res$source == "KEGG", "KEGG", "REACTOME")
+  # A function factory for getting integer y-axis values.
+  integer_breaks <- function(n = 5, ...) {
+    fxn <- function(x) {
+      breaks <- floor(pretty(x, n, ...))
+      names(breaks) <- attr(breaks, "labels")
+      breaks
+    }
+    return(fxn)
+  }
+  
+  Enr.plot <- ggplot(Enrich.Res, aes(x = Enrich.Res$intersection_size, y = reorder(Enrich.Res$term_name, Enrich.Res$intersection_size),
+                                       size = reorder(round(Enrich.Res$p_value, 4), -log10(Enrich.Res$p_value)), 
+                                       color = Enrich.Res$source)) +
+    geom_point() +
+    theme_bw() + xlab("# of detected proteins") + ylab("Pathway") +
+    theme(legend.position="right", text = element_text(face="bold"),
+          axis.text = element_text(color = "black", face = "bold")) +
+    labs(size = "p.adj", color = "Database") +
+    scale_color_manual(values = c("#17202A", "#A93226")) +
+   scale_x_continuous(breaks = integer_breaks())
+  plot(Enr.plot)
+  if (!is.null(directorypath))
+  {
+    if (dim(Enrich.Res)[1] < 50)
+    {
+      ggsave(filename = "Enrichment analysis.jpeg", plot = Enr.plot, device = "jpeg", width = 10, height = 8 ,dpi = 300)
+      ggsave(filename = "Enrichment analysis.tiff", plot = Enr.plot, device = "tiff", width = 10, height = 8 ,dpi = 300)
+    }
+    else if (dim(Enrich.Res)[1] < 100)
+    {
+      ggsave(filename = "Enrichment analysis.jpeg", plot = Enr.plot, device = "jpeg", width = 15, height = 11 ,dpi = 300)
+      ggsave(filename = "Enrichment analysis.tiff", plot = Enr.plot, device = "tiff", width = 15, height = 11 ,dpi = 300)
+    }
+  }
+}
+#' Connect and parse UniProt information
+#'
+#' This function is used for Enrichment analysis of given list of genes or proteins from KEGG database
+#'
+#' @usage Enrichment.KEGG(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+#'
+#' @param Accs Vector of UniProt Accession/s or genes 
+#' 
+#' @param OS  organism name Example: human - 'hsapiens', mouse - 'mmusculus'
+#' 
+#' @param p_value custom p-value threshold for significance, default = 0.05
+#' 
+#' @param directorypath Path to save output plot 
+#'
+#' @export
+#'
+#' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
+Enrichment.KEGG <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+{
+  
+  AccList <- as.character(unique(Accs))
+  Enrich.object <- gost(query = Accs, sources = c('KEGG'), organism = OS, user_threshold = p_value, evcodes = T)
+  
+  Enrich.Res <- Enrich.object$result
+  
+  # A function factory for getting integer y-axis values.
+  integer_breaks <- function(n = 5, ...) {
+    fxn <- function(x) {
+      breaks <- floor(pretty(x, n, ...))
+      names(breaks) <- attr(breaks, "labels")
+      breaks
+    }
+    return(fxn)
+  }
+  
+  Enr.plot <- ggplot(Enrich.Res, aes(x = Enrich.Res$intersection_size, y = reorder(Enrich.Res$term_name, Enrich.Res$intersection_size),
+                                     size = reorder(round(Enrich.Res$p_value, 4), -log10(Enrich.Res$p_value)), 
+                                     color = Enrich.Res$p_value)) +
+    geom_point() +
+    theme_bw() + xlab("# of detected proteins") + ylab("Pathway") +
+    theme(legend.position="right", text = element_text(face="bold"),
+          axis.text = element_text(color = "black", face = "bold")) +
+    labs(size = "p.adj", color = " ") +
+    scale_color_gradient(low = "#17202A", high =  "#A93226") +
+    scale_x_continuous(breaks = integer_breaks())
+  plot(Enr.plot)
+  if (!is.null(directorypath))
+  {
+    if (dim(Enrich.Res)[1] < 50)
+    {
+      ggsave(filename = "Enrichment KEGG.jpeg", plot = Enr.plot, device = "jpeg", width = 10, height = 8 ,dpi = 300)
+      ggsave(filename = "Enrichment KEGG.tiff", plot = Enr.plot, device = "tiff", width = 10, height = 8 ,dpi = 300)
+    }
+    else if (dim(Enrich.Res)[1] < 100)
+    {
+      ggsave(filename = "Enrichment KEGG.jpeg", plot = Enr.plot, device = "jpeg", width = 15, height = 11 ,dpi = 300)
+      ggsave(filename = "Enrichment KEGG.tiff", plot = Enr.plot, device = "tiff", width = 15, height = 11 ,dpi = 300)
+    }
+  }
+}
+#' Connect and parse UniProt information
+#'
+#' This function is used for Enrichment analysis of given list of genes or proteins from REACTOME
+#'
+#' @usage Enrichment.REAC(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+#'
+#' @param Accs Vector of UniProt Accession/s or genes 
+#' 
+#' @param OS  organism name Example: human - 'hsapiens', mouse - 'mmusculus'
+#' 
+#' @param p_value custom p-value threshold for significance, default = 0.05
+#' 
+#' @param directorypath Path to save output plot 
+#'
+#' @export
+#'
+#' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
+Enrichment.REAC <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+{
+  
+  AccList <- as.character(unique(Accs))
+  Enrich.object <- gost(query = Accs, sources = c('REAC'), organism = OS, user_threshold = p_value, evcodes = T)
+  
+  Enrich.Res <- Enrich.object$result
+  
+  # A function factory for getting integer y-axis values.
+  integer_breaks <- function(n = 5, ...) {
+    fxn <- function(x) {
+      breaks <- floor(pretty(x, n, ...))
+      names(breaks) <- attr(breaks, "labels")
+      breaks
+    }
+    return(fxn)
+  }
+  
+  Enr.plot <- ggplot(Enrich.Res, aes(x = Enrich.Res$intersection_size, y = reorder(Enrich.Res$term_name, Enrich.Res$intersection_size),
+                                     size = reorder(round(Enrich.Res$p_value, 4), -log10(Enrich.Res$p_value)), 
+                                     color = Enrich.Res$p_value)) +
+    geom_point() +
+    theme_bw() + xlab("# of detected proteins") + ylab("Pathway") +
+    theme(legend.position="right", text = element_text(face="bold"),
+          axis.text = element_text(color = "black", face = "bold")) +
+    labs(size = "p.adj", color = " ") +
+    scale_color_gradient(low = "#17202A", high =  "#A93226") +
+    scale_x_continuous(breaks = integer_breaks())
+  plot(Enr.plot)
+  if (!is.null(directorypath))
+  {
+    if (dim(Enrich.Res)[1] < 50)
+    {
+      ggsave(filename = "Enrichment REAC.jpeg", plot = Enr.plot, device = "jpeg", width = 10, height = 8 ,dpi = 300)
+      ggsave(filename = "Enrichment REAC.tiff", plot = Enr.plot, device = "tiff", width = 10, height = 8 ,dpi = 300)
+    }
+    else if (dim(Enrich.Res)[1] < 100)
+    {
+      ggsave(filename = "Enrichment REAC.jpeg", plot = Enr.plot, device = "jpeg", width = 15, height = 11 ,dpi = 300)
+      ggsave(filename = "Enrichment REAC.tiff", plot = Enr.plot, device = "tiff", width = 15, height = 11 ,dpi = 300)
+    }
+  }
+}
+
+#' Connect and parse UniProt information
+#'
+#' This function is used for Enrichment analysis of biological process of given list of genes or proteins
+#'
+#' @usage Enrichment.BP(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+#'
+#' @param Accs Vector of UniProt Accession/s or genes 
+#' 
+#' @param OS  organism name Example: human - 'hsapiens', mouse - 'mmusculus'
+#' 
+#' @param p_value custom p-value threshold for significance, default = 0.05
+#' 
+#' @param directorypath Path to save output plot 
+#'
+#' @export
+#'
+#' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
+Enrichment.BP <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+{
+  
+  AccList <- as.character(unique(Accs))
+  Enrich.object <- gost(query = Accs, sources = c('GO:BP'), organism = OS, user_threshold = p_value, evcodes = T)
+  
+  Enrich.Res <- Enrich.object$result
+  
+  
+  Enr.plot <- ggplot(Enrich.Res, aes(x = -log10(Enrich.Res$p_value), y = reorder(Enrich.Res$term_name, -Enrich.Res$p_value))) +
+    geom_bar(stat = "identity", fill = "darkred") +
+    theme_bw() + xlab("-log10 (p.adj)") + ylab("Biological process") +
+    theme(legend.position="right", text = element_text(face="bold"),
+          axis.text = element_text(color = "black", face = "bold")) 
+  plot(Enr.plot)
+  if (!is.null(directorypath))
+  {
+    if (dim(Enrich.Res)[1] < 50)
+    {
+      ggsave(filename = "Enrichment BP.jpeg", plot = Enr.plot, device = "jpeg", width = 10, height = 8 ,dpi = 300)
+      ggsave(filename = "Enrichment BP.tiff", plot = Enr.plot, device = "tiff", width = 10, height = 8 ,dpi = 300)
+    }
+    else if (dim(Enrich.Res)[1] < 100)
+    {
+      ggsave(filename = "Enrichment BP.jpeg", plot = Enr.plot, device = "jpeg", width = 15, height = 11 ,dpi = 300)
+      ggsave(filename = "Enrichment BP.tiff", plot = Enr.plot, device = "tiff", width = 15, height = 11 ,dpi = 300)
+    }
+  }
+}
+
+#' Connect and parse UniProt information
+#'
+#' This function is used for Enrichment analysis of Molecular function of given list of genes or proteins
+#'
+#' @usage Enrichment.MF(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+#'
+#' @param Accs Vector of UniProt Accession/s or genes 
+#' 
+#' @param OS  organism name Example: human - 'hsapiens', mouse - 'mmusculus'
+#' 
+#' @param p_value custom p-value threshold for significance, default = 0.05
+#' 
+#' @param directorypath Path to save output plot 
+#'
+#' @export
+#'
+#' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
+Enrichment.MF <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+{
+  
+  AccList <- as.character(unique(Accs))
+  Enrich.object <- gost(query = Accs, sources = c('GO:MF'), organism = OS, user_threshold = p_value, evcodes = T)
+  
+  Enrich.Res <- Enrich.object$result
+  
+  
+  Enr.plot <- ggplot(Enrich.Res, aes(x = -log10(Enrich.Res$p_value), y = reorder(Enrich.Res$term_name, -Enrich.Res$p_value))) +
+    geom_bar(stat = "identity", fill = "darkred") +
+    theme_bw() + xlab("-log10 (p.adj)") + ylab("Biological process") +
+    theme(legend.position="right", text = element_text(face="bold"),
+          axis.text = element_text(color = "black", face = "bold")) 
+  plot(Enr.plot)
+  if (!is.null(directorypath))
+  {
+    if (dim(Enrich.Res)[1] < 50)
+    {
+      ggsave(filename = "Enrichment BP.jpeg", plot = Enr.plot, device = "jpeg", width = 10, height = 8 ,dpi = 300)
+      ggsave(filename = "Enrichment BP.tiff", plot = Enr.plot, device = "tiff", width = 10, height = 8 ,dpi = 300)
+    }
+    else if (dim(Enrich.Res)[1] < 100)
+    {
+      ggsave(filename = "Enrichment BP.jpeg", plot = Enr.plot, device = "jpeg", width = 15, height = 11 ,dpi = 300)
+      ggsave(filename = "Enrichment BP.tiff", plot = Enr.plot, device = "tiff", width = 15, height = 11 ,dpi = 300)
+    }
+  }
+}
+
+#' Connect and parse UniProt information
+#'
+#' This function is used for Enrichment analysis of cellular component of given list of genes or proteins
+#'
+#' @usage Enrichment.CC(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+#'
+#' @param Accs Vector of UniProt Accession/s or genes 
+#' 
+#' @param OS  organism name Example: human - 'hsapiens', mouse - 'mmusculus'
+#' 
+#' @param p_value custom p-value threshold for significance, default = 0.05
+#' 
+#' @param directorypath Path to save output plot 
+#'
+#' @export
+#'
+#' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
+Enrichment.CC <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+{
+  
+  AccList <- as.character(unique(Accs))
+  Enrich.object <- gost(query = Accs, sources = c('GO:CC'), organism = OS, user_threshold = p_value, evcodes = T)
+  
+  Enrich.Res <- Enrich.object$result
+  
+  
+  Enr.plot <- ggplot(Enrich.Res, aes(x = -log10(Enrich.Res$p_value), y = reorder(Enrich.Res$term_name, -Enrich.Res$p_value))) +
+    geom_bar(stat = "identity", fill = "darkred") +
+    theme_bw() + xlab("-log10 (p.adj)") + ylab("Cellular component") +
+    theme(legend.position="right", text = element_text(face="bold"),
+          axis.text = element_text(color = "black", face = "bold")) 
+  plot(Enr.plot)
+  if (!is.null(directorypath))
+  {
+    if (dim(Enrich.Res)[1] < 50)
+    {
+      ggsave(filename = "Enrichment CC.jpeg", plot = Enr.plot, device = "jpeg", width = 10, height = 8 ,dpi = 300)
+      ggsave(filename = "Enrichment CC.tiff", plot = Enr.plot, device = "tiff", width = 10, height = 8 ,dpi = 300)
+    }
+    else if (dim(Enrich.Res)[1] < 100)
+    {
+      ggsave(filename = "Enrichment CC.jpeg", plot = Enr.plot, device = "jpeg", width = 15, height = 11 ,dpi = 300)
+      ggsave(filename = "Enrichment CC.tiff", plot = Enr.plot, device = "tiff", width = 15, height = 11 ,dpi = 300)
+    }
+  }
+}

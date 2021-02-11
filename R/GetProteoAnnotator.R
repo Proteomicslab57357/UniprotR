@@ -54,7 +54,11 @@ GetProteinAnnontate <- function(ProteinAccList,columns){
         )
         ProteinName_url <- paste0("?query=accession:",ProteinAcc,"&format=tab&columns=",col)
         RequestUrl <- paste0(baseUrl , ProteinName_url)
-
+        if (length(Request) == 0)
+        {
+          message("Internet connection problem occurs")
+          return()
+        }
         if ( Request$status_code == 200){
 
           # parse the information in DataFrame

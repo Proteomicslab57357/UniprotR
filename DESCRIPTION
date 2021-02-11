@@ -1,6 +1,6 @@
 Package: UniprotR
 Title: Retrieving Information of Proteins from Uniprot
-Version: 1.3.2
+Version: 2.0.3
 Authors@R: c(person("Mohamed", "Soudy", email = "MohmedSoudy2009@gmail.com", role=c("aut", "cre")), person("Ali", "Mostafa", email = "ali.mo.anwar@std.agr.cu.edu.eg", role = "aut"))
 Author: Mohamed Soudy [aut, cre],
   Ali Mostafa [aut]
@@ -9,13 +9,13 @@ Description: Connect to Uniprot <https://www.uniprot.org/> to retrieve informati
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
-Imports: utils , grDevices , graphics, httr , plyr , dplyr , scales ,
-        stats , magrittr , magick , data.tree , ggplot2 , tidyverse ,
-        grid , gridExtra , ggpubr , alakazam, curl
+RoxygenNote: 7.1.1
+Imports: utils , grDevices , stats , grid , graphics , httr , plyr , dplyr , scales ,
+          magrittr , magick , data.tree , ggplot2 , tidyverse ,
+          gridExtra , ggpubr , alakazam, curl, networkD3, stringr , qdapRegex , htmlwidgets , gprofiler2 
 URL: https://github.com/Proteomicslab57357/UniprotR
 BugReports: https://github.com/Proteomicslab57357/UniprotR/issues
 NeedsCompilation: no
-Packaged: 2020-05-26 16:51:55 UTC; RSH
+Packaged: 2020-07-26 12:54:33 UTC; RSH
 Repository: CRAN
-Date/Publication: 2020-05-26 22:40:08 UTC
+Date/Publication: 2020-07-26 13:20:05 UTC

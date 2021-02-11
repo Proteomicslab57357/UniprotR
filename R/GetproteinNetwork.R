@@ -16,7 +16,7 @@
 #' @export
 GetproteinNetwork <- function(ProteinAccList , directorypath = NULL)
 {
-  LogFile <- paste0(directorypath, "/","NetworkLog.txt")
+  LogFile <- paste0(directorypath,"/NetworkLog.txt")
   
   pdf(paste0(directorypath , "/","Protin Network.pdf"))
   baseUrl <- "https://string-db.org/api/image/network?identifiers="
@@ -30,13 +30,13 @@ GetproteinNetwork <- function(ProteinAccList , directorypath = NULL)
     if (Request$status_code == 200)
     {
       Network <- image_read(ProteinString)
-      ProteinFrame <- read.csv(URLencode(paste0("https://www.uniprot.org/uniprot/?query=accession:" ,identifier ,"&format=tab&columns=protein names")) , spe = "\t")
+      ProteinFrame <- read.csv(URLencode(paste0("https://www.uniprot.org/uniprot/?query=accession:" ,identifier ,"&format=tab&columns=protein names")), sep = "\t")
       ProteinName <- as.character(ProteinFrame$Protein.names)
       plot(Network)
       title(list(paste0(identifier ,":" ,  ProteinName),cex = 0.4, font = 1))
       Accessions <- c(Accessions , identifier);
     }else{
-      cat(paste0(identifier , " Not Found on Stringdb"), file = LogFile, append = TRUE, sep = "\n")
+      cat(paste0(identifier , "Not Found on Stringdb"), file = LogFile, append = TRUE, sep = "\n")
       print(paste0(identifier , " Not Found on Stringdb"))
     }
   }

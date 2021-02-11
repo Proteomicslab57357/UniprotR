@@ -14,33 +14,14 @@
 #'
 Goparse <- function(GOObj , index = 3)
 {
-  GO_df_obj_bio <- toString(na.omit(GOObj[,index]))
-
-  GO_df_obj_bio <- strsplit(GO_df_obj_bio,";")
-
-  GO_df_obj_bio_df <- data.frame(GO_df_obj_bio)
-
-  colnames(GO_df_obj_bio_df) <- "bio"
-
-
-  trim <- function (x) gsub("^\\s+|\\s+$", "", x)
-
-  GO_df_obj_bio_df$bio <- trim(GO_df_obj_bio_df$bio)
-
-  test1 <- strsplit(as.character( GO_df_obj_bio_df$bio ), ".\\[")
-
-  test2 <- lapply(test1, function(x) x[[1]][1])
-
-  occurences<-table(unlist(test2))
-
-  occurences<- as.data.frame(occurences)
-
-  occurences <-  occurences[order(-occurences$Freq),]
-
-  colnames(occurences) <- c("Goterm","Frequences")
-
-  occurences %>%
-    mutate(freq = percent(occurences$Freq / length(rownames(GOObj)))) -> occurences
+  GO_df_obj_bio <- as.character(na.omit(GOObj[, index]))
+  GO_df_obj_bio <- strsplit(GO_df_obj_bio, ";")
+  Terms <- rm_between(unlist(GO_df_obj_bio), "[", "]")
+  occurences <- table(unlist(Terms))
+  occurences <- as.data.frame(occurences)
+  occurences <- occurences[order(-occurences$Freq), ]
+  colnames(occurences) <- c("Goterm", "Count")
+  occurences <- occurences %>% mutate(`%` = percent(occurences$Count/length(rownames(GOObj))))
   return(occurences)
 }
 
@@ -50,7 +31,7 @@ Goparse <- function(GOObj , index = 3)
 #'
 #' @usage PlotGoInfo(GOObj , directorypath = NULL)
 #'
-#' @param GOObj Dataframe.
+#' @param GOObj Dataframe retrieved from UniprotR Function "GetProteinGOInfo".
 #'
 #' @param directorypath path to save excel file containig results returened by the function ( default = NA ).
 #'
@@ -58,33 +39,30 @@ Goparse <- function(GOObj , index = 3)
 #'
 #' @export
 #'
-PlotGoInfo <- function(GOObj , directorypath = NULL,
-                       xlab_Bio = "Biological GO Info",
-                       xlab_Mol = "Molecular GO Info",
-                       xlab_Cel = "Cellular GO Info")
+PlotGoInfo <- function(GOObj , directorypath = NULL)
 {
-  #Get Biologica process Data
+  #Get Biological process Data
   BiologicalDF <- Goparse(GOObj , 3)
   #Plot top 10
   BiologicalDF <- BiologicalDF[1:10,]
   BiologicalDF <- na.omit(BiologicalDF)
-  
+
   #Plot Biological function
-  BiologicalPlot <- ggplot(data=BiologicalDF, aes(x=reorder(Goterm , BiologicalDF$Frequences), y=BiologicalDF$Frequences)) +
-    geom_bar(stat="identity",fill="darkred") + xlab(xlab_Bio) + ylab("Protein count")+
+  BiologicalPlot <- ggplot(data=BiologicalDF, aes(x=reorder(BiologicalDF$Goterm , BiologicalDF$Count), y=BiologicalDF$Count)) +
+    geom_bar(stat="identity",fill="darkred") + xlab("Biological Process") + ylab("Protein count")+
     theme_bw()+theme(text = element_text(size=12, face="bold", colour="black"),axis.text.x = element_text(vjust=2))
   BiologicalPlot <- BiologicalPlot + coord_flip()
   
   
   
-  #Get molecuar function
+  #Get molecular function
   MolecularDF <- Goparse(GOObj , 4)
   #Plot top 10
   MolecularDF <- MolecularDF[1:10,]
   MolecularDF <- na.omit(MolecularDF)
   
-  MolecularPlot <- ggplot(data=MolecularDF, aes(x=reorder(MolecularDF$Goterm , MolecularDF$Frequences), y=MolecularDF$Frequences)) +
-    geom_bar(stat="identity",fill="darkgreen") + xlab(xlab_Mol) + ylab("Protein count")+
+  MolecularPlot <- ggplot(data=MolecularDF, aes(x=reorder(MolecularDF$Goterm , MolecularDF$Count), y=MolecularDF$Count)) +
+    geom_bar(stat="identity",fill="darkgreen") + xlab("Molecular Function") + ylab("Protein count")+
     theme_bw()+theme(text = element_text(size=12, face="bold", colour="black"),axis.text.x = element_text(vjust=2))
   MolecularPlot <- MolecularPlot + coord_flip()
 
@@ -94,8 +72,8 @@ PlotGoInfo <- function(GOObj , directorypath = NULL,
   CellularDF <- CellularDF[1:10,]
   CellularDF <- na.omit(CellularDF)
   
-  CellularPlot <- ggplot(data=CellularDF, aes(x=reorder(CellularDF$Goterm , CellularDF$Frequences), y=CellularDF$Frequences)) +
-    geom_bar(stat="identity",fill="darkblue") + xlab(xlab_Cel) + ylab("Protein count")+
+  CellularPlot <- ggplot(data=CellularDF, aes(x=reorder(CellularDF$Goterm , CellularDF$Count), y=CellularDF$Count)) +
+    geom_bar(stat="identity",fill="darkblue") + xlab("Cellular component") + ylab("Protein count")+
     theme_bw()+theme(text = element_text(size=12, face="bold", colour="black"),axis.text.x = element_text(vjust=2))
   CellularPlot <- CellularPlot + coord_flip()
 

@@ -15,8 +15,6 @@
 #'
 #' @note The function also, Creates a csv file with the retrieved information.
 #'
-#' @examples Obj <- GetFamily_Domains("O14520")
-#'
 #' @export
 #'
 #' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
@@ -38,7 +36,7 @@ GetFamily_Domains<- function(ProteinAccList , directorypath = NULL){
     #to see if Request == 200 or not
     Request <- tryCatch(
       {
-        GET(paste0(baseUrl , ProteinAcc,".xml") , timeout(10))
+        GET(paste0(baseUrl , ProteinAcc,".xml") , timeout(5))
       },error = function(cond)
       {
         message("Internet connection problem occurs and the function will return the original error")
@@ -52,6 +50,11 @@ GetFamily_Domains<- function(ProteinAccList , directorypath = NULL){
 
     RequestUrl <- paste0(baseUrl , ProteinName_url)
     RequestUrl <- URLencode(RequestUrl)
+    if (length(Request) == 0)
+    {
+      message("Internet connection problem occurs")
+      return()
+    }
     if (Request$status_code == 200){
       # parse the information in DataFrame
       ProteinDataTable <- tryCatch(read.csv(RequestUrl, header = TRUE, sep = '\t'), error=function(e) NULL)

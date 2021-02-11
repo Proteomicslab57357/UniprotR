@@ -22,8 +22,7 @@ GetProteomeFasta <- function(ProteomeID , directorypath = NULL)
   }
   baseUrl <- "https://www.uniprot.org/uniprot/?query=proteome:"
   Request <- tryCatch(
-    {      
-      
+    {
       GET(paste0(baseUrl , ProteomeID,"&format=fasta") , timeout(60))
     },error = function(cond)
     {
@@ -31,6 +30,11 @@ GetProteomeFasta <- function(ProteomeID , directorypath = NULL)
       message(cond)
     }
   )
+  if (length(Request) == 0)
+  {
+    message("Internet connection problem occurs")
+    return()
+  }
   if (Request$status_code == 200)
   {
     download.file(Request$url ,paste0(directorypath ,"/" , ProteomeID, ".fasta"))
@@ -39,8 +43,6 @@ GetProteomeFasta <- function(ProteomeID , directorypath = NULL)
     HandleBadRequests(Request$status_code)
   }
 }
-
-
 
 
 
