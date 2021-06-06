@@ -28,6 +28,9 @@ GetCross_references_Information <- function(ProteinAccList , directorypath = NUL
     message("Please connect to the internet as the package requires internect connection.")
     return()
   }
+  message("Please wait we are processing your accessions ...")
+  pb <- progress::progress_bar$new(total = length(ProteinAccList))
+  
   baseUrl <- "http://www.uniprot.org/uniprot/"
 
   Colnames = "database(db_abbrev),database(EMBL)"
@@ -68,6 +71,8 @@ GetCross_references_Information <- function(ProteinAccList , directorypath = NUL
     }else {
       HandleBadRequests(Request$status_code)
     }
+    pb$tick()
+    
   }
   if(!is.null(directorypath))
     {

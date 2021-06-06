@@ -31,6 +31,10 @@ GetProteinGOInfo <- function(ProteinAccList , directorypath = NULL)
   ProteinInfoParsed_total = data.frame()
 
   baseUrl <- "http://www.uniprot.org/uniprot/"
+  
+  message("Please wait we are processing your accessions ...")
+  pb <- progress::progress_bar$new(total = length(ProteinAccList))
+  
 
   Colnames = "go-id,go,go(biological process),go(molecular function),go(cellular component)"
   for (ProteinAcc in ProteinAccList)
@@ -68,6 +72,8 @@ GetProteinGOInfo <- function(ProteinAccList , directorypath = NULL)
     }else {
       HandleBadRequests(Request$status_code)
     }
+    pb$tick()
+    
   }
   if(!is.null(directorypath))
   {

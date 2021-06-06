@@ -11,7 +11,7 @@
 #' @return DataFrame where rows names are the accession
 #'      and columns contains the information retrieved from the UniProt
 #'
-#' @examples Obj <- GetSequences("O14520")
+#' @examples Obj <- GetSeqLength("O14520")
 #'
 #' @note The function also, Creates a csv file with the retrieved information.
 #'

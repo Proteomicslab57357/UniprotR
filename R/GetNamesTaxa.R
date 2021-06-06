@@ -29,6 +29,9 @@ GetNamesTaxa <- function(ProteinAccList , directorypath = NULL)
     return()
   }
   
+  message("Please wait we are processing your accessions ...")
+  pb <- progress::progress_bar$new(total = length(ProteinAccList))
+  
   baseUrl <- "http://www.uniprot.org/uniprot/"
   Colnames = "entry name,genes,genes(PREFERRED),genes(ALTERNATIVE),genes(OLN),genes(ORF),organism,organism-id,protein names,proteome,lineage(ALL),virus hosts"
 
@@ -68,6 +71,8 @@ GetNamesTaxa <- function(ProteinAccList , directorypath = NULL)
     }else {
       HandleBadRequests(Request$status_code)
     }
+    pb$tick()
+    
   }
   if(!is.null(directorypath))
   {

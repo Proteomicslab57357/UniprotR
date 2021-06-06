@@ -27,7 +27,7 @@ Goparse <- function(GOObj , index = 3)
 
 #' Connect and parse UniProt information.
 #'
-#' This Function is used to plot data retrieved from UniprotR Function "Goparse".
+#' This Function is used to plot data retrieved from UniprotR Function "GetProteinGOInfo".
 #'
 #' @usage PlotGoInfo(GOObj , directorypath = NULL)
 #'
@@ -89,7 +89,9 @@ PlotGoInfo <- function(GOObj , directorypath = NULL)
   #  along = 2,
   #  nrow=3)
 
-  GoSummary <- grid.arrange(gtable_combine(tableGrob(BiologicalDF), tableGrob(MolecularDF), tableGrob(CellularDF) , along=2))
+  GoSummary <- grid.arrange(gtable_combine(tableGrob(BiologicalDF, rows = NULL),
+                                           tableGrob(MolecularDF, rows = NULL),
+                                           tableGrob(CellularDF, rows = NULL) , along=2))
 
 
   GoInfoPlot <- ggarrange(Goplots , GoSummary , ncol = 2 ,  align = "h")

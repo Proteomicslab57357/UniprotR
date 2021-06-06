@@ -28,6 +28,8 @@ GetMiscellaneous <- function(ProteinAccList , directorypath = NULL){
     message("Please connect to the internet as the package requires internect connection.")
     return()
   }
+  message("Please wait we are processing your accessions ...")
+  pb <- progress::progress_bar$new(total = length(ProteinAccList))
   # Miscellaneous information to be collected
   columns <- c("annotation score,features,comment(CAUTION),comment(MISCELLANEOUS),keywords,context,existence,tools,reviewed")
   baseUrl <- "http://www.uniprot.org/uniprot/"
@@ -68,6 +70,7 @@ GetMiscellaneous <- function(ProteinAccList , directorypath = NULL){
     }else {
       HandleBadRequests(Request$status_code)
     }
+    pb$tick()
   }
   if(!is.null(directorypath))
   {

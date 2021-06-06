@@ -30,6 +30,8 @@ GetPTM_Processing<- function(ProteinAccList, directorypath = NULL ){
     return()
   }
 
+  message("Please wait we are processing your accessions ...")
+  pb <- progress::progress_bar$new(total = length(ProteinAccList))
   # PTM_Processsing information to be collected
   columns <- c("comment(PTM),feature(CHAIN),feature(CROSS LINK),feature(DISULFIDE BOND),feature(GLYCOSYLATION),feature(INITIATOR METHIONINE),feature(LIPIDATION),feature(MODIFIED RESIDUE),feature(PEPTIDE),feature(PROPEPTIDE),feature(SIGNAL),feature(TRANSIT)")
   baseUrl <- "http://www.uniprot.org/uniprot/"
@@ -70,6 +72,8 @@ GetPTM_Processing<- function(ProteinAccList, directorypath = NULL ){
     }else {
       HandleBadRequests(Request$status_code)
     }
+    pb$tick()
+    
   }
   if(!is.null(directorypath))
   {

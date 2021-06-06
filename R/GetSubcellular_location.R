@@ -26,6 +26,8 @@ GetSubcellular_location <- function(ProteinAccList, directorypath = NULL)
     message("Please connect to the internet as the package requires internect connection.")
     return()
   }
+  message("Please wait we are processing your accessions ...")
+  pb <- progress::progress_bar$new(total = length(ProteinAccList))
   ProteinInfoParsed_total = data.frame()
   baseUrl <- "http://www.uniprot.org/uniprot/"
   Colnames = "comment(SUBCELLULAR LOCATION),feature(INTRAMEMBRANE),feature(TOPOLOGICAL DOMAIN),feature(TRANSMEMBRANE)"
@@ -63,6 +65,8 @@ GetSubcellular_location <- function(ProteinAccList, directorypath = NULL)
     }else {
       HandleBadRequests(Request$status_code)
     }
+    pb$tick()
+    
   }
   if (!is.null(directorypath)){
   write.csv(ProteinInfoParsed_total , paste0(directorypath, "/" ,"Subcellular location Info.csv"))

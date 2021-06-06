@@ -32,7 +32,9 @@ GetTaxonomic_lineage <- function(ProteinAccList , directorypath = NULL){
   # Sequences information to be collected
   columns <- c("lineage(all),lineage(SUPERKINGDOM),lineage(KINGDOM),lineage(SUBKINGDOM),lineage(SUPERPHYLUM),lineage(PHYLUM),lineage(SUBPHYLUM),lineage(SUPERCLASS),lineage(CLASS),lineage(SUBCLASS),lineage(INFRACLASS),lineage(SUPERORDER),lineage(ORDER),lineage(SUBORDER), lineage(INFRAORDER),lineage(PARVORDER),lineage(SUPERFAMILY),lineage(FAMILY),lineage(SUBFAMILY),lineage(TRIBE),lineage(SUBTRIBE),lineage(GENUS),lineage(SUBGENUS),lineage(SPECIES GROUP),lineage(SPECIES SUBGROUP),lineage(SPECIES),lineage(SUBSPECIES),lineage(VARIETAS),lineage(FORMA)")
 
-
+  message("Please wait we are processing your accessions ...")
+  pb <- progress::progress_bar$new(total = length(ProteinAccList))
+  
   baseUrl <- "http://www.uniprot.org/uniprot/"
   ProteinInfoParsed_total = data.frame()
   for (ProteinAcc in ProteinAccList)
@@ -71,6 +73,8 @@ GetTaxonomic_lineage <- function(ProteinAccList , directorypath = NULL){
     }else {
       HandleBadRequests(Request$status_code)
     }
+    pb$tick()
+    
     }
 
   if (!is.null(directorypath)){

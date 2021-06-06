@@ -29,6 +29,8 @@ GetTaxaidentifier <- function(ProteinAccList, directorypath = NULL)
     return()
   }
   ProteinInfoParsed_total = data.frame()
+  message("Please wait we are processing your accessions ...")
+  pb <- progress::progress_bar$new(total = length(ProteinAccList))
   baseUrl <- "http://www.uniprot.org/uniprot/"
   Colnames = "lineage-id(all),lineage-id(SUPERKINGDOM),lineage-id(KINGDOM),lineage-id(SUBKINGDOM),lineage-id(SUPERPHYLUM),lineage-id(PHYLUM),lineage-id(SUBPHYLUM),lineage-id(SUPERCLASS),lineage-id(CLASS),lineage-id(SUBCLASS),lineage-id(INFRACLASS),lineage-id(SUPERORDER),lineage-id(ORDER),lineage-id(SUBORDER),lineage-id(INFRAORDER),lineage-id(PARVORDER),lineage-id(SUPERFAMILY),lineage-id(FAMILY),lineage-id(SUBFAMILY),lineage-id(TRIBE),lineage-id(SUBTRIBE),lineage-id(GENUS),lineage-id(SUBGENUS),lineage-id(SPECIES GROUP),lineage-id(SPECIES SUBGROUP),lineage-id(SPECIES),lineage-id(SUBSPECIES),lineage-id(VARIETAS),lineage-id(FORMA)"
   for (ProteinAcc in ProteinAccList)
@@ -66,6 +68,8 @@ GetTaxaidentifier <- function(ProteinAccList, directorypath = NULL)
     }else {
       HandleBadRequests(Request$status_code)
     }
+    pb$tick()
+    
   }
   if(!is.null(directorypath)){
   write.csv(ProteinInfoParsed_total , paste0(directorypath, "/" ,"Taxa Information.csv"))

@@ -26,7 +26,8 @@ GetFamily_Domains<- function(ProteinAccList , directorypath = NULL){
     message("Please connect to the internet as the package requires internect connection.")
     return()
   }
-
+  message("Please wait we are processing your accessions ...")
+  pb <- progress::progress_bar$new(total = length(ProteinAccList))
   # Family_Domains information to be collected
   columns <- c("comment(DOMAIN),comment(SIMILARITY),families,feature(COILED COIL),feature(COMPOSITIONAL BIAS),feature(DOMAIN EXTENT),feature(MOTIF),feature(REGION),feature(REPEAT),feature(ZINC FINGER)")
   baseUrl <- "http://www.uniprot.org/uniprot/"
@@ -68,6 +69,8 @@ GetFamily_Domains<- function(ProteinAccList , directorypath = NULL){
     }else {
       HandleBadRequests(Request$status_code)
     }
+    pb$tick()
+    
   }
   if(!is.null(directorypath))
   {

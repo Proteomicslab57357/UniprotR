@@ -28,6 +28,8 @@ GetStructureInfo <- function(ProteinAccList, directorypath = NULL)
   ProteinInfoParsed_total = data.frame()
   baseUrl <- "http://www.uniprot.org/uniprot/"
   Colnames = "3d,feature(BETA STRAND),feature(HELIX),feature(TURN)"
+  message("Please wait we are processing your accessions ...")
+  pb <- progress::progress_bar$new(total = length(ProteinAccList))
   for (ProteinAcc in ProteinAccList)
   {
     #to see if Request == 200 or not
@@ -61,6 +63,8 @@ GetStructureInfo <- function(ProteinAccList, directorypath = NULL)
     }else {
       HandleBadRequests(Request$status_code)
     }
+    pb$tick()
+    
   }
   if (!is.null(directorypath)) {
   write.csv(ProteinInfoParsed_total ,paste0(directorypath, "/" ,"Structral Info.csv"))

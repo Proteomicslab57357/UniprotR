@@ -17,6 +17,9 @@
 GetpdbStructure <- function(ProteinAccList , directorypath = NULL)
 {
   baseUrl <- "https://swissmodel.expasy.org/repository/uniprot/"
+  message("Please wait we are processing your accessions ...")
+  pb <- progress::progress_bar$new(total = length(ProteinAccList))
+  
   for (ProteinAcc in ProteinAccList)
   {
     RequiredAcc <- paste0(baseUrl , ProteinAcc ,".pdb")
@@ -28,5 +31,7 @@ GetpdbStructure <- function(ProteinAccList , directorypath = NULL)
     else{
       HandleBadRequests(Request_Response$status_code)
     }
+    pb$tick()
+    
   }
 }

@@ -29,7 +29,8 @@ GetPathology_Biotech<- function(ProteinAccList , directorypath = NULL){
     message("Please connect to the internet as the package requires internect connection.")
     return()
   }
-
+  message("Please wait we are processing your accessions ...")
+  pb <- progress::progress_bar$new(total = length(ProteinAccList))
   # Pathology_Biotech information to be collected
   columns <- "comment(ALLERGEN),comment(BIOTECHNOLOGY),comment(DISRUPTION PHENOTYPE),comment(DISEASE),comment(PHARMACEUTICAL),comment(TOXIC DOSE)"
   baseUrl <- "http://www.uniprot.org/uniprot/"
@@ -70,6 +71,8 @@ GetPathology_Biotech<- function(ProteinAccList , directorypath = NULL){
     }else {
       HandleBadRequests(Request$status_code)
     }
+    pb$tick()
+    
   }
   if(!is.null(directorypath))
   {

@@ -30,6 +30,8 @@ GetGeneral_Information <- function(ProteinAccList , directorypath = NULL)
     return()
   }
   
+  message("Please wait we are processing your accessions ...")
+  pb <- progress::progress_bar$new(total = length(ProteinAccList))
   ProteinInfoParsed_total = data.frame()
   Colnames = "created,last-modified,sequence-modified,version(entry)"
   baseUrl <- "http://www.uniprot.org/uniprot/"
@@ -67,6 +69,8 @@ GetGeneral_Information <- function(ProteinAccList , directorypath = NULL)
     }else {
       HandleBadRequests(Request$status_code)
     }
+    pb$tick()
+    
   }
   if(!is.null(directorypath))
   {

@@ -33,6 +33,9 @@ GetProteinFunction <- function(ProteinAccList , directorypath = NULL)
   baseUrl <- "http://www.uniprot.org/uniprot/"
   Colnames = "ec,comment(ABSORPTION),comment(CATALYTIC ACTIVITY),chebi,chebi(Catalytic activity),chebi(Cofactor),chebi-id,comment(COFACTOR),comment(ENZYME REGULATION),comment(FUNCTION),comment(KINETICS),comment(PATHWAY),comment(REDOX POTENTIAL),comment(TEMPERATURE DEPENDENCE),comment(PH DEPENDENCE),feature(ACTIVE SITE),feature(BINDING SITE),feature(DNA BINDING),feature(METAL BINDING),feature(NP BIND),feature(SITE)"
 
+  message("Please wait we are processing your accessions ...")
+  pb <- progress::progress_bar$new(total = length(ProteinAccList))
+  
   for (ProteinAcc in ProteinAccList)
   {
     #to see if Request == 200 or not
@@ -67,6 +70,7 @@ GetProteinFunction <- function(ProteinAccList , directorypath = NULL)
     }else {
       HandleBadRequests(Request$status_code)
     }
+    pb$tick()
   }
   if(!is.null(directorypath))
   {
