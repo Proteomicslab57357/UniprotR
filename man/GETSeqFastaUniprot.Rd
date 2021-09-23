@@ -4,15 +4,17 @@
 \alias{GETSeqFastaUniprot}
 \title{Connect and parse UniProt information.}
 \usage{
-GETSeqFastaUniprot(Accessions, FileName = NULL)
+GETSeqFastaUniprot(Accessions,FilePath = NULL, FileName = NULL)
 }
 \arguments{
-\item{Accessions}{list of Uniprot accessions}
+\item{Accessions}{Vector of UniProt Accession/s}
 
-\item{FileName}{OUtput file name}
+\item{FilePath}{path of directory to save the output fasta.}
+
+\item{FileName}{Name of the fasta file.}
 }
 \description{
-This Function is used to download sequences of given protein list in a fasta format
+This Function is used to get Sequence information of accession/s from Uniprot as a Fasta file.
 }
 \author{
 Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}

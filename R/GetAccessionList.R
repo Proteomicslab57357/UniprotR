@@ -14,7 +14,7 @@
 GetAccessionList <- function(DataObjPath)
 {
   DataSet <- read.csv(DataObjPath)
-  AccessionList <- as.array(as.character(DataSet[,1]))
+  AccessionList <- trimws(unique(as.character(DataSet[,1])))
   return(AccessionList)
 }
 
