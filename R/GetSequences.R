@@ -2,7 +2,7 @@
 #'
 #' The function is work to retrieve Sequences data from UniProt for a list of proteins accessions.
 #' For more information about what included in the Sequences data
-#' see https://www.uniprot.org/help/uniprotkb_column_names.
+#' see https://www.uniprot.org/help/return_fields.
 #'
 #' @usage GetSequences(ProteinAccList, directorypath = NULL)
 #'
@@ -32,15 +32,15 @@ GetSequences <- function(ProteinAccList, directorypath = NULL){
   message("Please wait we are processing your accessions ...")
   pb <- progress::progress_bar$new(total = length(ProteinAccList))
   # Sequences information to be collected
-  columns <- c("fragment,encodedon,comment(ALTERNATIVE PRODUCTS),comment(ERRONEOUS GENE MODEL PREDICTION),comment(ERRONEOUS INITIATION),comment(ERRONEOUS TERMINATION),comment(ERRONEOUS TRANSLATION),comment(FRAMESHIFT),comment(MASS SPECTROMETRY),comment(POLYMORPHISM),comment(RNA EDITING),comment(SEQUENCE CAUTION),length,mass,sequence,feature(ALTERNATIVE SEQUENCE),feature(NATURAL VARIANT),feature(NON ADJACENT RESIDUES),feature(NON STANDARD RESIDUE),feature(NON TERMINAL RESIDUE),feature(SEQUENCE CONFLICT),feature(SEQUENCE UNCERTAINTY),version(sequence)")
-  baseUrl <- "http://www.uniprot.org/uniprot/"
+  columns <- c("cc_alternative_products,ft_var_seq,error_gmodel_pred,fragment,organelle,length,mass,cc_mass_spectrometry,ft_variant,ft_non_cons,ft_non_std,ft_non_ter,cc_polymorphism,cc_rna_editing,sequence,cc_sequence_caution,ft_conflict,ft_unsure,sequence_version")
+  baseUrl <- "https://rest.uniprot.org/uniprotkb/search?query=accession:"
   ProteinInfoParsed_total = data.frame()
   for (ProteinAcc in ProteinAccList)
   {
     #to see if Request == 200 or not
     Request <- tryCatch(
       {
-        GET(paste0(baseUrl , ProteinAcc,".xml"))
+        GET(paste0(baseUrl , ProteinAcc,"&format=tsv") , timeout(7))
       },error = function(cond)
       {
         message("Internet connection problem occurs and the function will return the original error")
@@ -48,7 +48,7 @@ GetSequences <- function(ProteinAccList, directorypath = NULL){
       }
     )    #this link return information in tab formate (format = tab)
     #columns = what to return from all of the information (see: https://www.uniprot.org/help/uniprotkb_column_names)
-    ProteinName_url <- paste0("?query=accession:",ProteinAcc,"&format=tab&columns=",columns)
+    ProteinName_url <- paste0(ProteinAcc,"&format=tsv&fields=",columns)
     RequestUrl <- paste0(baseUrl , ProteinName_url)
     RequestUrl <- URLencode(RequestUrl)
     if (length(Request) == 0)

@@ -2,7 +2,7 @@
 #'
 #' The function is work to retrieve protein Interactions data from UniProt for a
 #' list of proteins accessions.For more information about what included in the
-#' protein Interactions data see https://www.uniprot.org/help/uniprotkb_column_names.
+#' protein Interactions data see https://www.uniprot.org/help/return_fields.
 #'
 #' @usage GetProteinInteractions(ProteinAccList , directorypath = NULL)
 #'
@@ -29,8 +29,8 @@ GetProteinInteractions <- function(ProteinAccList , directorypath = NULL)
     return()
   }
   ProteinInfoParsed_total = data.frame()
-  baseUrl <- "http://www.uniprot.org/uniprot/"
-  Colnames = "comment(SUBUNIT),interactor"
+  baseUrl <- "https://rest.uniprot.org/uniprotkb/search?query=accession:"
+  columns = "cc_subunit, cc_interaction"
   
   message("Please wait we are processing your accessions ...")
   pb <- progress::progress_bar$new(total = length(ProteinAccList))
@@ -39,7 +39,7 @@ GetProteinInteractions <- function(ProteinAccList , directorypath = NULL)
     #to see if Request == 200 or not
     Request <- tryCatch(
       {
-        GET(paste0(baseUrl , ProteinAcc,".xml") , timeout(7))
+        GET(paste0(baseUrl , ProteinAcc,"&format=tsv") , timeout(7))
       },error = function(cond)
       {
         message("Internet connection problem occurs and the function will return the original error")
@@ -47,7 +47,7 @@ GetProteinInteractions <- function(ProteinAccList , directorypath = NULL)
       }
     )
     #this link return information in tab formate (format = tab)
-    ProteinName_url <- paste0("?query=accession:",ProteinAcc,"&format=tab&columns=",Colnames)
+    ProteinName_url <- paste0(ProteinAcc,"&format=tsv&fields=",columns)
     RequestUrl <- paste0(baseUrl , ProteinName_url)
     if (length(Request) == 0)
     {

@@ -2,7 +2,7 @@
 #'
 #' The function is work to retrieve proteins gene ontology  data from UniProt
 #' for a list of proteins accessions.For more information about what included in the
-#' proteins gene ontology data see https://www.uniprot.org/help/uniprotkb_column_names.
+#' proteins gene ontology data see https://www.uniprot.org/help/return_fields.
 #'
 #' @usage GetProteinGOInfo(ProteinAccList , directorypath = NULL)
 #'
@@ -30,19 +30,19 @@ GetProteinGOInfo <- function(ProteinAccList , directorypath = NULL)
   }
   ProteinInfoParsed_total = data.frame()
 
-  baseUrl <- "http://www.uniprot.org/uniprot/"
+  baseUrl <- "https://rest.uniprot.org/uniprotkb/search?query=accession:"
   
   message("Please wait we are processing your accessions ...")
   pb <- progress::progress_bar$new(total = length(ProteinAccList))
   
 
-  Colnames = "go-id,go,go(biological process),go(molecular function),go(cellular component)"
+  columns = "go_id,go,go_p,go_f,go_c"
   for (ProteinAcc in ProteinAccList)
   {
     #to see if Request == 200 or not
     Request <- tryCatch(
       {
-        GET(paste0(baseUrl , ProteinAcc,".xml"))
+        GET(paste0(baseUrl , ProteinAcc,"&format=tsv") , timeout(7))
       },error = function(cond)
       {
         message("Internet connection problem occurs and the function will return the original error")
@@ -51,7 +51,7 @@ GetProteinGOInfo <- function(ProteinAccList , directorypath = NULL)
     )
     #this link return information in tab formate (format = tab)
     #columns = what to return from all of the information (see: https://www.uniprot.org/help/uniprotkb_column_names)
-    ProteinName_url <- paste0("?query=accession:",ProteinAcc,"&format=tab&columns=",Colnames)
+    ProteinName_url <- paste0(ProteinAcc,"&format=tsv&fields=",columns)
     RequestUrl <- paste0(baseUrl , ProteinName_url)
     RequestUrl <- URLencode(RequestUrl)
     if (length(Request) == 0)

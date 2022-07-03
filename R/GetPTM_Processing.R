@@ -2,7 +2,7 @@
 #'
 #' The function is work to retrieve PTM_Processsing data from UniProt for a list of proteins accessions.
 #' For more information about what included in the PTM_Processsing data
-#' see https://www.uniprot.org/help/uniprotkb_column_names.
+#' see https://www.uniprot.org/help/return_fields.
 #'
 #' @usage GetPTM_Processing(ProteinAccList, directorypath = NULL)
 #'
@@ -33,15 +33,15 @@ GetPTM_Processing<- function(ProteinAccList, directorypath = NULL ){
   message("Please wait we are processing your accessions ...")
   pb <- progress::progress_bar$new(total = length(ProteinAccList))
   # PTM_Processsing information to be collected
-  columns <- c("comment(PTM),feature(CHAIN),feature(CROSS LINK),feature(DISULFIDE BOND),feature(GLYCOSYLATION),feature(INITIATOR METHIONINE),feature(LIPIDATION),feature(MODIFIED RESIDUE),feature(PEPTIDE),feature(PROPEPTIDE),feature(SIGNAL),feature(TRANSIT)")
-  baseUrl <- "http://www.uniprot.org/uniprot/"
+  columns <- c("ft_chain,ft_crosslnk,ft_disulfid,ft_carbohyd,ft_init_met,ft_lipid,ft_mod_res,ft_peptide,cc_ptm,ft_propep,ft_signal,ft_transit")
+  baseUrl <- "https://rest.uniprot.org/uniprotkb/search?query=accession:"
   ProteinInfoParsed_total = data.frame()
   for (ProteinAcc in ProteinAccList)
   {
     #to see if Request == 200 or not
     Request <- tryCatch(
       {
-        GET(paste0(baseUrl , ProteinAcc,".xml"))
+        GET(paste0(baseUrl , ProteinAcc,"&format=tsv") , timeout(7))
       },error = function(cond)
       {
         message("Internet connection problem occurs and the function will return the original error")
@@ -50,8 +50,8 @@ GetPTM_Processing<- function(ProteinAccList, directorypath = NULL ){
     )
     #this link return information in tab formate (format = tab)
     #columns = what to return from all of the information (see: https://www.uniprot.org/help/uniprotkb_column_names)
-    ProteinName_url <- paste0("?query=accession:",ProteinAcc,"&format=tab&columns=",columns)
-
+    ProteinName_url <- paste0(ProteinAcc,"&format=tsv&fields=",columns)
+    
     RequestUrl <- paste0(baseUrl , ProteinName_url)
     RequestUrl <- URLencode(RequestUrl)
     if (length(Request) == 0)

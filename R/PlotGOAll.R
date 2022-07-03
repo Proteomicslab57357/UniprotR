@@ -53,7 +53,8 @@ PlotGOAll <- function(GOObj, Top = 10, directorypath = NULL, width = width, heig
                  sort.by.groups = TRUE,      
                  x.text.angle = 90          
   )
-  P <- P + scale_fill_lancet() + coord_flip()
+  P <- P + scale_fill_lancet() + coord_flip() + xlab("") + theme(legend.title = element_blank())
+
   if(!is.null(directorypath))
   {
     ggsave(plot = P, filename = paste0(directorypath, "/", "GO All.jpeg"), device = "jpeg", width = width, height = height)

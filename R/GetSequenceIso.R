@@ -28,10 +28,10 @@ GetSequenceIso <- function(ProteinAccList , directorypath = NULL)
   }
   ProteinAccList <- gsub("\\.", "-", ProteinAccList)
   
-  BaseUrl <- "https://www.uniprot.org/uniparc/?query="
+  BaseUrl <- "https://rest.uniprot.org/uniparc/stream?query="
   ProteinInfoParsed_total = data.frame()
   for (Accession in ProteinAccList){
-    RequestURL <- paste0(BaseUrl , Accession ,"&format=tab&force=true&columns=sequence")
+    RequestURL <- paste0(BaseUrl , Accession ,"&format=fasta")
     Request <- tryCatch(
       {
         GET(RequestURL)
@@ -48,8 +48,8 @@ GetSequenceIso <- function(ProteinAccList , directorypath = NULL)
     }
     if (Request$status_code == 200) {
       ProteinDataTable <- tryCatch(read.csv(RequestURL,
-                                            header = TRUE, sep = "\t"), error = function(e) NULL)
-      ProteinDataTable1 <- ProteinDataTable[1,]
+                                            header = TRUE), error = function(e) NULL)
+      ProteinDataTable1 <- paste(ProteinDataTable[,1], collapse = "")
       ProteinInfoParsed <- as.data.frame(ProteinDataTable1,
                                          row.names = Accession)
       ProteinInfoParsed_total <- rbind(ProteinInfoParsed_total,

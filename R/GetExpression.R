@@ -2,7 +2,7 @@
 #'
 #' The function is work to retrieve Expression data from UniProt for a
 #' list of proteins accessions.For more information about what included
-#' in the Expression data see https://www.uniprot.org/help/uniprotkb_column_names.
+#' in the Expression data see https://www.uniprot.org/help/return_fields.
 #'
 #' @usage GetExpression(ProteinAccList , directorypath = NULL)
 #'
@@ -31,15 +31,15 @@ GetExpression <- function(ProteinAccList , directorypath = NULL){
   message("Please wait we are processing your accessions ...")
   pb <- progress::progress_bar$new(total = length(ProteinAccList))
     # Expression information to be collected
-    columns <- c("comment(DEVELOPMENTAL STAGE),comment(INDUCTION),comment(TISSUE SPECIFICITY)")
-    baseUrl <- "http://www.uniprot.org/uniprot/"
+    columns <- c("cc_developmental_stage,cc_induction,cc_tissue_specificity")
+    baseUrl <- "https://rest.uniprot.org/uniprotkb/search?query=accession:"
     ProteinInfoParsed_total = data.frame()
     for (ProteinAcc in ProteinAccList)
     {
       #to see if Request == 200 or not
       Request <- tryCatch(
         {
-          GET(paste0(baseUrl , ProteinAcc,".xml"))
+          GET(paste0(baseUrl , ProteinAcc,"&format=tsv"))
         },error = function(cond)
         {
           message("Internet connection problem occurs and the function will return the original error")
@@ -49,7 +49,7 @@ GetExpression <- function(ProteinAccList , directorypath = NULL){
 
       #this link return information in tab formate (format = tab)
       #columns = what to return from all of the information (see: https://www.uniprot.org/help/uniprotkb_column_names)
-      ProteinName_url <- paste0("?query=accession:",ProteinAcc,"&format=tab&columns=",columns)
+      ProteinName_url <- paste0(ProteinAcc,"&format=tsv&fields=",columns)
 
       RequestUrl <- paste0(baseUrl , ProteinName_url)
       RequestUrl <- URLencode(RequestUrl)

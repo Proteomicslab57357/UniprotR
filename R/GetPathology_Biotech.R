@@ -2,7 +2,7 @@
 #'
 #' The function is work to retrieve Pathology_Biotech data from UniProt for
 #' a list of proteins accessions.For more information about what included in the
-#' Pathology_Biotech data see https://www.uniprot.org/help/uniprotkb_column_names.
+#' Pathology_Biotech data see https://www.uniprot.org/help/return_fields.
 #'
 #' @usage GetPathology_Biotech(ProteinAccList , directorypath = NULL)
 #'
@@ -32,15 +32,15 @@ GetPathology_Biotech<- function(ProteinAccList , directorypath = NULL){
   message("Please wait we are processing your accessions ...")
   pb <- progress::progress_bar$new(total = length(ProteinAccList))
   # Pathology_Biotech information to be collected
-  columns <- "comment(ALLERGEN),comment(BIOTECHNOLOGY),comment(DISRUPTION PHENOTYPE),comment(DISEASE),comment(PHARMACEUTICAL),comment(TOXIC DOSE)"
-  baseUrl <- "http://www.uniprot.org/uniprot/"
+  columns <- "cc_allergen,cc_biotechnology,cc_disruption_phenotype,cc_disease,cc_pharmaceutical,cc_toxic_dose,ft_mutagen"
+  baseUrl <- "https://rest.uniprot.org/uniprotkb/search?query=accession:"
   ProteinInfoParsed_total = data.frame()
   for (ProteinAcc in ProteinAccList)
   {
     #to see if Request == 200 or not
     Request <- tryCatch(
       {
-        GET(paste0(baseUrl , ProteinAcc,".xml"))
+        GET(paste0(baseUrl , ProteinAcc,"&format=tsv") , timeout(7))
       },error = function(cond)
       {
         message("Internet connection problem occurs and the function will return the original error")
@@ -49,8 +49,8 @@ GetPathology_Biotech<- function(ProteinAccList , directorypath = NULL){
     ) 
     #this link return information in tab formate (format = tab)
     #columns = what to return from all of the information (see: https://www.uniprot.org/help/uniprotkb_column_names)
-    ProteinName_url <- paste0("?query=accession:",ProteinAcc,"&format=tab&columns=",columns)
-
+    ProteinName_url <- paste0(ProteinAcc,"&format=tsv&fields=",columns)
+    
     RequestUrl <- paste0(baseUrl , ProteinName_url)
     RequestUrl <- URLencode(RequestUrl)
     if (length(Request) == 0)

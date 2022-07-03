@@ -6,7 +6,7 @@
 #'
 #' @param Accs Vector of UniProt Accession/s or genes 
 #' 
-#' @param OS  organism name Example: human - 'hsapiens', mouse - 'mmusculus'
+#' @param OS  organism Example: human - 'hsapiens' for more info https://biit.cs.ut.ee/gprofiler/page/organism-list
 #' 
 #' @param p_value custom p-value threshold for significance, default = 0.05
 #' 

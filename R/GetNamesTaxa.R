@@ -2,7 +2,7 @@
 #'
 #'The function is work to retrieve Names Taxa data from UniProt for a list of proteins accessions.
 #'For more information about what included in the NamesTaxa
-#'data see https://www.uniprot.org/help/uniprotkb_column_names.
+#'data see https://www.uniprot.org/help/return_fields.
 #'
 #' @usage GetNamesTaxa(ProteinAccList , directorypath = NULL)
 #'
@@ -32,8 +32,8 @@ GetNamesTaxa <- function(ProteinAccList , directorypath = NULL)
   message("Please wait we are processing your accessions ...")
   pb <- progress::progress_bar$new(total = length(ProteinAccList))
   
-  baseUrl <- "http://www.uniprot.org/uniprot/"
-  Colnames = "entry name,genes,genes(PREFERRED),genes(ALTERNATIVE),genes(OLN),genes(ORF),organism,organism-id,protein names,proteome,lineage(ALL),virus hosts"
+  baseUrl <- "https://rest.uniprot.org/uniprotkb/search?query=accession:"
+  columns = "accession,id,gene_names,gene_primary,gene_synonym,gene_oln,gene_orf,organism_name,organism_id,protein_name,xref_proteomes,lineage,virus_hosts"
 
   ProteinInfoParsed_total = data.frame()
   for (ProteinAcc in ProteinAccList)
@@ -41,7 +41,7 @@ GetNamesTaxa <- function(ProteinAccList , directorypath = NULL)
     #to see if Request == 200 or not
     Request <- tryCatch(
       {
-        GET(paste0(baseUrl , ProteinAcc,".xml") , timeout(7))
+        GET(paste0(baseUrl , ProteinAcc,"&format=tsv") , timeout(7))
       },error = function(cond)
       {
         message("Internet connection problem occurs and the function will return the original error")
@@ -49,7 +49,7 @@ GetNamesTaxa <- function(ProteinAccList , directorypath = NULL)
       }
     ) 
   #this link return information in tab formate (format = tab)
-    ProteinName_url <- paste0("?query=accession:",ProteinAcc,"&format=tab&columns=",Colnames)
+    ProteinName_url <- paste0(ProteinAcc,"&format=tsv&fields=",columns)
     RequestUrl <- paste0(baseUrl , ProteinName_url)
     RequestUrl <- URLencode(RequestUrl)
     if (length(Request) == 0)

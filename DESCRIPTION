@@ -1,6 +1,6 @@
 Package: UniprotR
 Title: Retrieving Information of Proteins from Uniprot
-Version: 2.1.0
+Version: 2.2.0
 Authors@R: c(person("Mohamed", "Soudy", email = "MohmedSoudy2009@gmail.com", role=c("aut", "cre")), person("Ali", "Mostafa", email = "ali.mo.anwar@std.agr.cu.edu.eg", role = "aut"))
 Author: Mohamed Soudy [aut, cre],
   Ali Mostafa [aut]
@@ -17,6 +17,6 @@ Imports: utils , grDevices , stats , grid , graphics , httr , plyr ,
 URL: https://github.com/Proteomicslab57357/UniprotR
 BugReports: https://github.com/Proteomicslab57357/UniprotR/issues
 NeedsCompilation: no
-Packaged: 2021-09-22 14:25:38 UTC; RSH
+Packaged: 2021-09-22 14:53:50 UTC; RSH
 Repository: CRAN
-Date/Publication: 2020-07-26 13:20:05 UTC
+Date/Publication: 2021-09-23 07:10:01 UTC

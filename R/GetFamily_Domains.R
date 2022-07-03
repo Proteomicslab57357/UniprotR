@@ -2,7 +2,7 @@
 #'
 #' The function is work to retrieve Family Domains data from UniProt for a
 #' list of proteins accessions.For more information about what included
-#' in the Family Domains data see https://www.uniprot.org/help/uniprotkb_column_names.
+#' in the Family Domains data see https://www.uniprot.org/help/return_fields.
 #'
 #' @usage GetFamily_Domains(ProteinAccList , directorypath = NULL)
 #'
@@ -29,15 +29,15 @@ GetFamily_Domains<- function(ProteinAccList , directorypath = NULL){
   message("Please wait we are processing your accessions ...")
   pb <- progress::progress_bar$new(total = length(ProteinAccList))
   # Family_Domains information to be collected
-  columns <- c("comment(DOMAIN),comment(SIMILARITY),families,feature(COILED COIL),feature(COMPOSITIONAL BIAS),feature(DOMAIN EXTENT),feature(MOTIF),feature(REGION),feature(REPEAT),feature(ZINC FINGER)")
-  baseUrl <- "http://www.uniprot.org/uniprot/"
+  columns <- c("cc_domain,protein_families,ft_coiled,ft_compbias,ft_domain,ft_motif,ft_region,ft_repeat,ft_zn_fing")
+  baseUrl <- "https://rest.uniprot.org/uniprotkb/search?query=accession:"
   ProteinInfoParsed_total = data.frame()
   for (ProteinAcc in ProteinAccList)
   {
     #to see if Request == 200 or not
     Request <- tryCatch(
       {
-        GET(paste0(baseUrl , ProteinAcc,".xml") , timeout(5))
+        GET(paste0(baseUrl , ProteinAcc,"&format=tsv") , timeout(5))
       },error = function(cond)
       {
         message("Internet connection problem occurs and the function will return the original error")
@@ -47,8 +47,8 @@ GetFamily_Domains<- function(ProteinAccList , directorypath = NULL){
 
     #this link return information in tab formate (format = tab)
     #columns = what to return from all of the information (see: https://www.uniprot.org/help/uniprotkb_column_names)
-    ProteinName_url <- paste0("?query=accession:",ProteinAcc,"&format=tab&columns=",columns)
-
+    ProteinName_url <- paste0(ProteinAcc,"&format=tsv&fields=",columns)
+    
     RequestUrl <- paste0(baseUrl , ProteinName_url)
     RequestUrl <- URLencode(RequestUrl)
     if (length(Request) == 0)
