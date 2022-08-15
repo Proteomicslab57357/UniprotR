@@ -31,7 +31,7 @@ GetProteinFunction <- function(ProteinAccList , directorypath = NULL)
   }
   ProteinInfoParsed_total = data.frame()
   baseUrl <- "https://rest.uniprot.org/uniprotkb/search?query=accession:"
-  columns = "absorption,ft_act_site,cc_activity_regulation,ft_binding,ft_ca_bind,cc_catalytic_activity,cc_cofactor,ft_dna_bind,ec,cc_function,kinetics,ft_metal,ft_np_bind,cc_pathway,ph_dependence,redox_potential,ft_site,temp_dependence"
+  columns = "absorption,ft_act_site,cc_activity_regulation,ft_binding,cc_catalytic_activity,cc_cofactor,ft_dna_bind,ec,cc_function,kinetics,cc_pathway,ph_dependence,redox_potential,rhea,ft_site,temp_dependence"
 
   message("Please wait we are processing your accessions ...")
   pb <- progress::progress_bar$new(total = length(ProteinAccList))
