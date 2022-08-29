@@ -24,7 +24,7 @@
 #' 
 PlotEnrichedGO <- function(Accs,OS="hsapiens",p_value=0.05,Path=NULL,theme="aaas",width=7,height= 7)
 {
-  Enr.data <- gost(Accs)
+  Enr.data <- gost(query = Accs, organism = OS, user_threshold = p_value)
   
   Enr.frame <- Enr.data$result
   
