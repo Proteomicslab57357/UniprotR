@@ -11,7 +11,6 @@
 ![](https://raw.githubusercontent.com/MohmedSoudy/datasharing/master/UniprotRLogo.png)
 
 # Installation
-The package is avilable now online at https://proteomicslab57357.shinyapps.io/UniprotR/
 
 ```R
 install.packages("UniprotR")
@@ -82,7 +81,7 @@ GetproteinNetwork(Accessions , Path to save your pdf file)
 
 For bugs and suggestions, the most effective way is by raising an issue on the github issue tracker. Github allows you to classify your issues so that we know if it is a bug report, feature request or feedback to the authors.
 
-**Email: Proteomicslab2017@gmail.com**
+**Email: MohmedSoudy2009@gmail.com**
 
 # Future plans
 
