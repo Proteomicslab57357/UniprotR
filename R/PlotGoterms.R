@@ -108,3 +108,32 @@ Plot.GOSubCellular <- function(GOObj, Top = 10, directorypath = NULL)
   plot(CellularPlot)
   return(CellularPlot)
 }
+#' Connect and parse UniProt information.
+#'
+#' This Function is used to plot data retrieved from UniprotR Function "GetProteinGOInfo".
+#'
+#' @usage PlotGoterms(GOObj , directorypath = NULL)
+#'
+#' @param GOObj Dataframe.
+#' 
+#' @param directorypath path to save plot returned by function ( default = NA ).
+#'
+#' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
+#'
+#' @export
+#'
+PlotGoterms <- function(GOObj , directorypath = NULL)
+{
+  Bio <- PlotGOBiological(GOObj)
+  Bio[["labels"]][["y"]] <- ""
+  Mol <- Plot.GOMolecular(GOObj)
+  Mol[["labels"]][["y"]] <- ""
+  Cell <- Plot.GOSubCellular(GOObj)
+  Goterms <- ggarrange(Bio , Mol  , Cell , nrow = 3 , ncol = 1 , align = "hv")
+  if(!is.null(directorypath))
+  {
+    ggsave(plot = Goterms, filename = paste0(directorypath, "/", "Go terms.jpeg"), device = "jpeg", width = 7, height = 9)
+  }
+  plot(Goterms)
+  return(Goterms)
+}

@@ -11,7 +11,7 @@
 #' @return DataFrame where rows names are the accession
 #'      and columns contains the information retrieved from the UniProt
 #'
-#' @examples Obj <- GetSequences("O14520")
+#' @examples Obj <- GetSeqLength("O14520")
 #'
 #' @note The function also, Creates a csv file with the retrieved information.
 #'
@@ -25,10 +25,10 @@ GetSeqLength <- function(ProteinAccList , directorypath = NULL)
     message("Please connect to the internet as the package requires internect connection.")
     return()
   }
-  BaseUrl <- "https://www.uniprot.org/uniparc/?query="
+  BaseUrl <- "https://rest.uniprot.org/uniparc/stream?query="
   ProteinInfoParsed_total = data.frame()
   for (Accession in ProteinAccList){
-    RequestURL <- paste0(BaseUrl , Accession ,"&format=tab&force=true&columns=length")
+    RequestURL <- paste0(BaseUrl , Accession ,"&format=fasta")
     Request <- tryCatch(
       {
         GET(RequestURL)
@@ -45,8 +45,8 @@ GetSeqLength <- function(ProteinAccList , directorypath = NULL)
     }
     if (Request$status_code == 200) {
       ProteinDataTable <- tryCatch(read.csv(RequestURL,
-                                            header = TRUE, sep = "\t"), error = function(e) NULL)
-      ProteinDataTable1 <- ProteinDataTable[1,]
+                                            header = T), error = function(e) NULL)
+      ProteinDataTable1 <- nchar(paste(ProteinDataTable[,1], collapse = ""))
       ProteinInfoParsed <- as.data.frame(ProteinDataTable1,
                                          row.names = Accession)
       ProteinInfoParsed_total <- rbind(ProteinInfoParsed_total,

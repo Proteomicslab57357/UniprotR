@@ -2,7 +2,7 @@
 #'
 #'The function is work to retrieve Protein Function data from UniProt for
 #'a list of proteins accessions.For more information about what included in the
-#'Protein Function data see https://www.uniprot.org/help/uniprotkb_column_names.
+#'Protein Function data see https://www.uniprot.org/help/return_fields.
 #'
 #' @usage GetProteinFunction(ProteinAccList , directorypath = NULL)
 #'
@@ -30,15 +30,18 @@ GetProteinFunction <- function(ProteinAccList , directorypath = NULL)
     return()
   }
   ProteinInfoParsed_total = data.frame()
-  baseUrl <- "http://www.uniprot.org/uniprot/"
-  Colnames = "ec,comment(ABSORPTION),comment(CATALYTIC ACTIVITY),chebi,chebi(Catalytic activity),chebi(Cofactor),chebi-id,comment(COFACTOR),comment(ENZYME REGULATION),comment(FUNCTION),comment(KINETICS),comment(PATHWAY),comment(REDOX POTENTIAL),comment(TEMPERATURE DEPENDENCE),comment(PH DEPENDENCE),feature(ACTIVE SITE),feature(BINDING SITE),feature(DNA BINDING),feature(METAL BINDING),feature(NP BIND),feature(SITE)"
+  baseUrl <- "https://rest.uniprot.org/uniprotkb/search?query=accession:"
+  columns = "absorption,ft_act_site,cc_activity_regulation,ft_binding,cc_catalytic_activity,cc_cofactor,ft_dna_bind,ec,cc_function,kinetics,cc_pathway,ph_dependence,redox_potential,rhea,ft_site,temp_dependence"
 
+  message("Please wait we are processing your accessions ...")
+  pb <- progress::progress_bar$new(total = length(ProteinAccList))
+  
   for (ProteinAcc in ProteinAccList)
   {
     #to see if Request == 200 or not
     Request <- tryCatch(
       {
-        GET(paste0(baseUrl , ProteinAcc,".xml") , timeout(10))
+        GET(paste0(baseUrl , ProteinAcc,"&format=tsv") , timeout(7))
       },error = function(cond)
       {
         message("Internet connection problem occurs and the function will return the original error")
@@ -46,7 +49,7 @@ GetProteinFunction <- function(ProteinAccList , directorypath = NULL)
       }
     ) 
     #this link return information in tab formate (format = tab)
-    ProteinName_url <- paste0("?query=accession:",ProteinAcc,"&format=tab&columns=",Colnames)
+    ProteinName_url <- paste0(ProteinAcc,"&format=tsv&fields=",columns)
     RequestUrl <- paste0(baseUrl , ProteinName_url)
     RequestUrl <- URLencode(RequestUrl)
     if (length(Request) == 0)
@@ -67,6 +70,7 @@ GetProteinFunction <- function(ProteinAccList , directorypath = NULL)
     }else {
       HandleBadRequests(Request$status_code)
     }
+    pb$tick()
   }
   if(!is.null(directorypath))
   {

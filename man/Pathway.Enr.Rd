@@ -9,7 +9,7 @@ Pathway.Enr(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
 \arguments{
 \item{Accs}{Vector of UniProt Accession/s or genes}
 
-\item{OS}{organism name Example: human - 'hsapiens', mouse - 'mmusculus'}
+\item{OS}{organism Example: human - 'hsapiens' for more info https://biit.cs.ut.ee/gprofiler/page/organism-list}
 
 \item{p_value}{custom p-value threshold for significance, default = 0.05}
 

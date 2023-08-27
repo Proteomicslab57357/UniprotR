@@ -18,7 +18,7 @@ DataFrame where rows names are the accession
 \description{
 The function is work to retrieve proteins gene ontology  data from UniProt
 for a list of proteins accessions.For more information about what included in the
-proteins gene ontology data see https://www.uniprot.org/help/uniprotkb_column_names.
+proteins gene ontology data see https://www.uniprot.org/help/return_fields.
 }
 \note{
 The function also, Creates a csv file with the retrieved information.

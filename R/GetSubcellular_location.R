@@ -2,7 +2,7 @@
 #'
 #' The function is work to retrieve protein Subcellular location data from UniProt for a list of proteins accessions.
 #' For more information about what included in the protein Subcellular location
-#' data see https://www.uniprot.org/help/uniprotkb_column_names.
+#' data see https://www.uniprot.org/help/return_fields.
 #'
 #' @usage GetSubcellular_location(ProteinAccList, directorypath = NULL)
 #'
@@ -26,15 +26,17 @@ GetSubcellular_location <- function(ProteinAccList, directorypath = NULL)
     message("Please connect to the internet as the package requires internect connection.")
     return()
   }
+  message("Please wait we are processing your accessions ...")
+  pb <- progress::progress_bar$new(total = length(ProteinAccList))
   ProteinInfoParsed_total = data.frame()
-  baseUrl <- "http://www.uniprot.org/uniprot/"
-  Colnames = "comment(SUBCELLULAR LOCATION),feature(INTRAMEMBRANE),feature(TOPOLOGICAL DOMAIN),feature(TRANSMEMBRANE)"
+  baseUrl <- "https://rest.uniprot.org/uniprotkb/search?query=accession:"
+  columns = "cc_subcellular_location,ft_intramem,ft_topo_dom,ft_transmem"
   for (ProteinAcc in ProteinAccList)
   {
     #to see if Request == 200 or not
     Request <- tryCatch(
       {
-        GET(paste0(baseUrl , ProteinAcc,".xml") , timeout(10))
+        GET(paste0(baseUrl , ProteinAcc,"&format=tsv") , timeout(7))
       },error = function(cond)
       {
         message("Internet connection problem occurs and the function will return the original error")
@@ -42,7 +44,7 @@ GetSubcellular_location <- function(ProteinAccList, directorypath = NULL)
       }
     )
     #this link return information in tab formate (format = tab)
-    ProteinName_url <- paste0("?query=accession:",ProteinAcc,"&format=tab&columns=",Colnames)
+    ProteinName_url <- paste0(ProteinAcc,"&format=tsv&fields=",columns)
     RequestUrl <- paste0(baseUrl , ProteinName_url)
     RequestUrl <- URLencode(RequestUrl)
     if (length(Request) == 0)
@@ -63,6 +65,8 @@ GetSubcellular_location <- function(ProteinAccList, directorypath = NULL)
     }else {
       HandleBadRequests(Request$status_code)
     }
+    pb$tick()
+    
   }
   if (!is.null(directorypath)){
   write.csv(ProteinInfoParsed_total , paste0(directorypath, "/" ,"Subcellular location Info.csv"))

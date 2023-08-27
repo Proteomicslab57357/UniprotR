@@ -20,10 +20,10 @@ GetProteomeInfo <- function(ProteomeID , directorypath = NULL)
     message("Please connect to the internet as the package requires internect connection.")
     return()
   }
-  baseUrl <- "https://www.uniprot.org/uniprot/?query=proteome:"
+  baseUrl <- "https://rest.uniprot.org/uniprotkb/stream?format=tsv&query=proteome:"
   Request <- tryCatch(
     {
-      GET(paste0(baseUrl , ProteomeID,"&format=tab"), timeout(60))
+      GET(paste0(baseUrl , ProteomeID), timeout(60))
     },error = function(cond)
     {
       message("Internet connection problem occurs and the function will return the original error")
