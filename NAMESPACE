@@ -4,17 +4,27 @@ importFrom("grDevices", "dev.off", "pdf")
 importFrom("graphics", "plot" , "title")
 importFrom("utils", "download.file", "read.csv", "read.table",
              "write.csv" , "write.table" , "URLencode")
+
 importFrom("httr" , "GET" , "timeout")
+
 importFrom("magick" , "image_read")
 importFrom("scales" , "percent")
 importFrom("curl" , "has_internet")
 importFrom("magrittr" , "%>%")
 importFrom("plyr" , "ddply" , "desc" , ".")
 importFrom("stats", "reorder" , "na.omit" , "start" , "end", "setNames", "p.adjust")
+
+importFrom("dplyr" , "select" , "arrange" , "summarize" , "rowwise", "bind_rows")
+importFrom("alakazam" , "aminoAcidProperties")
+importFrom("htmlwidgets", "saveWidget")
+importFrom("qdapRegex" , "ex_between", "rm_between")
+import(httr)
+
 importFrom("dplyr" , "select" , "arrange" , "summarize" , "rowwise")
 importFrom("alakazam" , "aminoAcidProperties")
 importFrom("htmlwidgets", "saveWidget")
 importFrom("qdapRegex" , "ex_between", "rm_between")
+
 import(gprofiler2)
 import(tidyverse)
 import(stringr)

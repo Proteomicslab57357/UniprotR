@@ -24,7 +24,9 @@
 #' 
 PlotEnrichedGO <- function(Accs,OS="hsapiens",p_value=0.05,Path=NULL,theme="aaas",width=7,height= 7)
 {
-  Enr.data <- gost(query = Accs, organism = OS, user_threshold = p_value)
+
+  Enr.data <- gost(Accs)
+
   
   Enr.frame <- Enr.data$result
   
@@ -56,4 +58,6 @@ PlotEnrichedGO <- function(Accs,OS="hsapiens",p_value=0.05,Path=NULL,theme="aaas
       ggsave(path = Path, filename = "Significant GO.jppeg", plot = P,width = width, height =height, dpi = 300)
   }
   plot(P)
+
 }
+

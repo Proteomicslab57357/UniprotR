@@ -21,76 +21,60 @@
 #' @export
 
 
-GetProteinAnnontate <- function(ProteinAccList,columns){
-  if(!has_internet())
+GetProteinAnnontate <- 
+  function (ProteinAccList, columns) 
   {
-    message("Please connect to the internet as the package requires internect connection.")
-    return()
-  }
-  # the core link
-  baseUrl <- "http://www.uniprot.org/uniprot/"
-
-  # dataframe to collect columns
-  ProteinInfoParsed_total_col = data.frame(x="x")
-
-  for (col in columns)
-    {
-      #dataframe to collect ProteinAccList
+    if (!has_internet()) {
+      message("Please connect to the internet as the package requires internect connection.")
+      return()
+    }
+    baseUrl <- "https://rest.uniprot.org/uniprotkb/"
+    ProteinInfoParsed_total_col = data.frame(x = "x")
+    for (filed in columns) {
       ProteinInfoParsed_total <- data.frame()
-
-
-      for (ProteinAcc in ProteinAccList)
-
-      {
-        #to see if Request == 200 or not
-        Request <- tryCatch(
-          {
-            GET(paste0(baseUrl , ProteinAcc,".xml") , timeout(10))
-          },error = function(cond)
-          {
-            message("Internet connection problem occurs and the function will return the original error")
-            message(cond)
-          }
-        )
-        ProteinName_url <- paste0("?query=accession:",ProteinAcc,"&format=tab&columns=",col)
-        RequestUrl <- paste0(baseUrl , ProteinName_url)
-        if (length(Request) == 0)
-        {
+      for (ProteinAcc in ProteinAccList) {
+        Request <- tryCatch({
+          GET(paste0(baseUrl, ProteinAcc, ".xml"), timeout(10))
+        }, error = function(cond) {
+          message("Internet connection problem occurs and the function will return the original error")
+          message(cond)
+        })
+        ProteinName_url <- paste0("/search?query=accession:", ProteinAcc, 
+                                  "&format=tsv&fields=", filed)
+        RequestUrl <- paste0(baseUrl, ProteinName_url)
+        if (length(Request) == 0) {
           message("Internet connection problem occurs")
           return()
         }
-        if ( Request$status_code == 200){
-
-          # parse the information in DataFrame
-
-          #if there are information in uniprot then parse_true if not then parse_false
-          parse_true <- function()
-          {ProteinInfoParsed <- as.data.frame(read.csv(RequestUrl,sep="\t", header=TRUE),row.names = ProteinAcc)
-          return(ProteinInfoParsed)
+        if (Request$status_code == 200) {
+          parse_true <- function() {
+            ProteinInfoParsed <- as.data.frame(read.csv(RequestUrl, 
+                                                        sep = "\t", header = TRUE), row.names = ProteinAcc)
+            return(ProteinInfoParsed)
           }
-          parse_false <- function()
-            {ProteinInfoParsed <- read.csv(RequestUrl,sep="\t", header=TRUE)
+          parse_false <- function() {
+            ProteinInfoParsed <- read.csv(RequestUrl, 
+                                          sep = "\t", header = TRUE)
             names <- names(ProteinInfoParsed)
-            ProteinInfoParsed <- data.frame(name_col = "NA" ,row.names = ProteinAcc)
+            ProteinInfoParsed <- data.frame(name_col = "NA", 
+                                            row.names = ProteinAcc)
             colnames(ProteinInfoParsed) <- names
-            return(ProteinInfoParsed)}
-
-          ProteinInfoParsed <- tryCatch(parse_true(), error = function(e) parse_false())
-
-          # add Dataframes together if more than one accession
-          ProteinInfoParsed_total <- rbind(ProteinInfoParsed_total, ProteinInfoParsed)
-
-
-          # all Bad requestes
-    }else {
-      HandleBadRequests(Request$status_code)
-    }
-
+            return(ProteinInfoParsed)
+          }
+          ProteinInfoParsed <- tryCatch(parse_true(), 
+                                        error = function(e) parse_false())
+          ProteinInfoParsed_total <- rbind(ProteinInfoParsed_total, 
+                                           ProteinInfoParsed)
+        }
+        else {
+          HandleBadRequests(Request$status_code)
+        }
       }
-      ProteinInfoParsed_total_col <- cbind(ProteinInfoParsed_total_col,ProteinInfoParsed_total)
+      ProteinInfoParsed_total_col <- cbind(ProteinInfoParsed_total_col, 
+                                           ProteinInfoParsed_total)
       remove(ProteinInfoParsed_total)
+    }
+    ProteinInfoParsed_total_col <- ProteinInfoParsed_total_col[, 
+                                                               !(names(ProteinInfoParsed_total_col) %in% c("x"))]
+    return(ProteinInfoParsed_total_col)
   }
-  ProteinInfoParsed_total_col <- ProteinInfoParsed_total_col[ , !(names(ProteinInfoParsed_total_col) %in% c("x"))]
-
-  return(ProteinInfoParsed_total_col)
-}

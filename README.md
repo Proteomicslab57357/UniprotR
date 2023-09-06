@@ -4,14 +4,15 @@
 [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/UniprotR)](https://CRAN.R-project.org/package=UniprotR) 
 [![](https://www.r-pkg.org/badges/version/UniprotR?color=green)](https://CRAN.R-project.org/package=UniprotR) 
 [![](https://img.shields.io/badge/doi-https%3A%2F%2Fdoi.org%2F10.1016%2Fj.jprot.2019.103613-red)](https://doi.org/10.1016/j.jprot.2019.103613)
-[![](https://badgen.net/badge/Citations/35/:color?icon=github)](https://doi.org/10.1016/j.jprot.2019.103613)
+
+[![](https://badgen.net/badge/Citations/65/:color?icon=github)](https://doi.org/10.1016/j.jprot.2019.103613)
+
 
 
 
 ![](https://raw.githubusercontent.com/MohmedSoudy/datasharing/master/UniprotRLogo.png)
 
 # Installation
-The package is avilable now online at https://proteomicslab57357.shinyapps.io/UniprotR/
 
 ```R
 install.packages("UniprotR")
@@ -91,7 +92,7 @@ GetproteinNetwork(Accessions , Path to save your pdf file)
 
 For bugs and suggestions, the most effective way is by raising an issue on the github issue tracker. Github allows you to classify your issues so that we know if it is a bug report, feature request or feedback to the authors.
 
-**Email: Proteomicslab2017@gmail.com**
+**Email: MohmedSoudy2009@gmail.com**
 
 # Future plans
 

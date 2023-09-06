@@ -1,6 +1,7 @@
 Package: UniprotR
 Title: Retrieving Information of Proteins from Uniprot
-Version: 2.2.1
+
+Version: 2.3.0
 Authors@R: c(person("Mohamed", "Soudy", email = "MohmedSoudy2009@gmail.com", role=c("aut", "cre")), person("Ali", "Mostafa", email = "ali.mo.anwar@std.agr.cu.edu.eg", role = "aut"))
 Author: Mohamed Soudy [aut, cre],
   Ali Mostafa [aut]
@@ -8,15 +9,17 @@ Maintainer: Mohamed Soudy <MohmedSoudy2009@gmail.com>
 Description: Connect to Uniprot <https://www.uniprot.org/> to retrieve information about proteins using their accession number such information could be name or taxonomy information, For detailed information kindly read the publication <https://www.sciencedirect.com/science/article/pii/S1874391919303859>.
 License: GPL-3
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+
+RoxygenNote: 7.2.3
 Imports: utils , grDevices , stats , grid , graphics , httr , plyr ,
         dplyr , scales , magrittr , magick , data.tree , ggplot2 ,
         tidyverse , gridExtra , ggpubr , curl, networkD3, stringr ,
-        qdapRegex , htmlwidgets , alakazam (>= 1.0.0), gprofiler2,
+        qdapRegex , htmlwidgets , alakazam, gprofiler2,
         progress, ggsci
 URL: https://github.com/Proteomicslab57357/UniprotR
 BugReports: https://github.com/Proteomicslab57357/UniprotR/issues
 NeedsCompilation: no
-Packaged: 2021-09-22 14:53:50 UTC; RSH
+
+Packaged: 2022-10-04 12:25:22 UTC; Soudy
 Repository: CRAN
-Date/Publication: 2021-09-23 07:10:01 UTC
+Date/Publication: 2022-10-04 14:00:02 UTC
