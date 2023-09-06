@@ -4,7 +4,9 @@
 [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/UniprotR)](https://CRAN.R-project.org/package=UniprotR) 
 [![](https://www.r-pkg.org/badges/version/UniprotR?color=green)](https://CRAN.R-project.org/package=UniprotR) 
 [![](https://img.shields.io/badge/doi-https%3A%2F%2Fdoi.org%2F10.1016%2Fj.jprot.2019.103613-red)](https://doi.org/10.1016/j.jprot.2019.103613)
+
 [![](https://badgen.net/badge/Citations/65/:color?icon=github)](https://doi.org/10.1016/j.jprot.2019.103613)
+
 
 
 
@@ -58,11 +60,16 @@ Plot.GOMolecular(GeneOntologyObj, Top = 20)
 Plot.GOSubCellular(GeneOntologyObj) 
 #Combine Gene ontology plots into one plot 
 PlotGoInfo(GeneOntologyObj)
+#Handy visualization for publications 
+PlotGOAll(GOObj = GeneOntologyObj, Top = 10, directorypath = getwd(), width = 8, height = 5)
 ```
 
 **Enrichment analysis using KEGG, Reactome of protein list**
 ```R
 Pathway.Enr(Accessions)
+#For ready graphs for publications 
+PlotEnrichedGO(Accs = Accessions, Path = getwd(), theme = "lancet", width = 9, height = 5)
+PlotEnrichedPathways(Accs = Accessions, Path = "Your local path to save graph", theme = "jama", w = 9, h = 5)
 ```
 
 **Get diseases associated with protein list**
@@ -70,7 +77,11 @@ Pathway.Enr(Accessions)
 PathologyObj <- GetPathology_Biotech(Accessions)
 Diseases <- Get.diseases(PathologyObj)
 ```
-
+**Get fasta file for protein list**
+```R
+#This feature could be used to create a databse search for MS/MS
+GETSeqFastaUniprot(Accessions = Accessions, FileName = "Acclist")
+```
 **Protein- Protein interaction using STRING**
 ```R
 #Get Protein-Protein Interaction within input data 

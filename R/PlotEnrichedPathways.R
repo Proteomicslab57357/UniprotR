@@ -24,7 +24,9 @@
 #' 
 PlotEnrichedPathways <- function(Accs,OS="hsapiens",p_value=0.05,Path=NULL,theme="aaas",w=w,h=h)
 {
+
   Enr.data <- gost(Accs)
+
   
   Enr.frame <- Enr.data$result
   
@@ -56,4 +58,6 @@ PlotEnrichedPathways <- function(Accs,OS="hsapiens",p_value=0.05,Path=NULL,theme
       ggsave(path = Path, filename = "Significant Pathways.jpeg", plot = P,width = w, height = h, dpi = 300)
   }
   plot(P)
+
 }
+
