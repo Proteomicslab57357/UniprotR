@@ -2,7 +2,7 @@
 #'
 #' This function is used for Enrichment analysis of given list of genes or proteins 
 #'
-#' @usage Pathway.Enr(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+#' @usage Pathway.Enr(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL,top=10)
 #'
 #' @param Accs Vector of UniProt Accession/s or genes 
 #' 
@@ -11,17 +11,20 @@
 #' @param p_value custom p-value threshold for significance, default = 0.05
 #' 
 #' @param directorypath Path to save output plot 
+#' 
+#' @param top Top N terms to be visualized
 #'
 #' @export
 #'
 #' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
-Pathway.Enr <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+Pathway.Enr <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL,top=10)
 {
   
   AccList <- as.character(unique(Accs))
   Enrich.object <- gost(query = Accs, sources = c('KEGG', 'REAC'), organism = OS, user_threshold = p_value, evcodes = T)
   
   Enrich.Res <- Enrich.object$result
+  Enrich.Res[1:top,]
   Enrich.Res$source <- ifelse(Enrich.Res$source == "KEGG", "KEGG", "REACTOME")
   # A function factory for getting integer y-axis values.
   integer_breaks <- function(n = 5, ...) {
@@ -63,7 +66,7 @@ Pathway.Enr <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
 #'
 #' This function is used for Enrichment analysis of given list of genes or proteins from KEGG database
 #'
-#' @usage Enrichment.KEGG(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+#' @usage Enrichment.KEGG(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL,top=10)
 #'
 #' @param Accs Vector of UniProt Accession/s or genes 
 #' 
@@ -72,18 +75,20 @@ Pathway.Enr <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
 #' @param p_value custom p-value threshold for significance, default = 0.05
 #' 
 #' @param directorypath Path to save output plot 
+#' 
+#' @param top Top N terms to be visualized
 #'
 #' @export
 #'
 #' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
-Enrichment.KEGG <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+Enrichment.KEGG <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL,top=10)
 {
   
   AccList <- as.character(unique(Accs))
   Enrich.object <- gost(query = Accs, sources = c('KEGG'), organism = OS, user_threshold = p_value, evcodes = T)
   
   Enrich.Res <- Enrich.object$result
-  
+  Enrich.Res <- Enrich.Res[1:top,]
   # A function factory for getting integer y-axis values.
   integer_breaks <- function(n = 5, ...) {
     fxn <- function(x) {
@@ -124,7 +129,7 @@ Enrichment.KEGG <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
 #'
 #' This function is used for Enrichment analysis of given list of genes or proteins from REACTOME
 #'
-#' @usage Enrichment.REAC(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+#' @usage Enrichment.REAC(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL,top=10)
 #'
 #' @param Accs Vector of UniProt Accession/s or genes 
 #' 
@@ -134,16 +139,19 @@ Enrichment.KEGG <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
 #' 
 #' @param directorypath Path to save output plot 
 #'
+#' @param top Top N terms to be visualized
+#'
 #' @export
 #'
 #' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
-Enrichment.REAC <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+Enrichment.REAC <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL,top=10)
 {
   
   AccList <- as.character(unique(Accs))
   Enrich.object <- gost(query = Accs, sources = c('REAC'), organism = OS, user_threshold = p_value, evcodes = T)
   
   Enrich.Res <- Enrich.object$result
+  Enrich.Res <- Enrich.Res[1:top,]
   
   # A function factory for getting integer y-axis values.
   integer_breaks <- function(n = 5, ...) {
@@ -186,7 +194,7 @@ Enrichment.REAC <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
 #'
 #' This function is used for Enrichment analysis of biological process of given list of genes or proteins
 #'
-#' @usage Enrichment.BP(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+#' @usage Enrichment.BP(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL,top=10)
 #'
 #' @param Accs Vector of UniProt Accession/s or genes 
 #' 
@@ -195,18 +203,20 @@ Enrichment.REAC <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
 #' @param p_value custom p-value threshold for significance, default = 0.05
 #' 
 #' @param directorypath Path to save output plot 
+#' 
+#' @param top Top N terms to be visualized
 #'
 #' @export
 #'
 #' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
-Enrichment.BP <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+Enrichment.BP <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL, top=10)
 {
   
   AccList <- as.character(unique(Accs))
   Enrich.object <- gost(query = Accs, sources = c('GO:BP'), organism = OS, user_threshold = p_value, evcodes = T)
   
   Enrich.Res <- Enrich.object$result
-  
+  Enrich.Res <- Enrich.Res[1:top,]
   
   Enr.plot <- ggplot(Enrich.Res, aes(x = -log10(Enrich.Res$p_value), y = reorder(Enrich.Res$term_name, -Enrich.Res$p_value))) +
     geom_bar(stat = "identity", fill = "darkred") +
@@ -234,7 +244,7 @@ Enrichment.BP <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
 #'
 #' This function is used for Enrichment analysis of Molecular function of given list of genes or proteins
 #'
-#' @usage Enrichment.MF(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+#' @usage Enrichment.MF(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL,top=10)
 #'
 #' @param Accs Vector of UniProt Accession/s or genes 
 #' 
@@ -243,19 +253,20 @@ Enrichment.BP <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
 #' @param p_value custom p-value threshold for significance, default = 0.05
 #' 
 #' @param directorypath Path to save output plot 
+#' 
+#' @param top Top N terms to be visualized
 #'
 #' @export
 #'
 #' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
-Enrichment.MF <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+Enrichment.MF <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL,top=10)
 {
   
   AccList <- as.character(unique(Accs))
   Enrich.object <- gost(query = Accs, sources = c('GO:MF'), organism = OS, user_threshold = p_value, evcodes = T)
   
   Enrich.Res <- Enrich.object$result
-  
-  
+  Enrich.Res <- Enrich.Res[1:top,]
   Enr.plot <- ggplot(Enrich.Res, aes(x = -log10(Enrich.Res$p_value), y = reorder(Enrich.Res$term_name, -Enrich.Res$p_value))) +
     geom_bar(stat = "identity", fill = "darkgreen") +
     theme_bw() + xlab("-log10 (p.adj)") + ylab("Molecular function") +
@@ -282,7 +293,7 @@ Enrichment.MF <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
 #'
 #' This function is used for Enrichment analysis of cellular component of given list of genes or proteins
 #'
-#' @usage Enrichment.CC(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+#' @usage Enrichment.CC(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL,top=10)
 #'
 #' @param Accs Vector of UniProt Accession/s or genes 
 #' 
@@ -290,19 +301,21 @@ Enrichment.MF <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
 #' 
 #' @param p_value custom p-value threshold for significance, default = 0.05
 #' 
-#' @param directorypath Path to save output plot 
+#' @param directorypath Path to save output plot
+#'
+#' @param top Top N terms to be visualized
 #'
 #' @export
 #'
 #' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
-Enrichment.CC <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+Enrichment.CC <- function(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL,top=10)
 {
   
   AccList <- as.character(unique(Accs))
   Enrich.object <- gost(query = Accs, sources = c('GO:CC'), organism = OS, user_threshold = p_value, evcodes = T)
   
   Enrich.Res <- Enrich.object$result
-  
+  Enrich.Res <- Enrich.Res[1:top,]
   
   Enr.plot <- ggplot(Enrich.Res, aes(x = -log10(Enrich.Res$p_value), y = reorder(Enrich.Res$term_name, -Enrich.Res$p_value))) +
     geom_bar(stat = "identity", fill = "darkblue") +

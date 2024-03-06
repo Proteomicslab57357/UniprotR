@@ -20,9 +20,13 @@ isJobReady <- function(jobId) {
   return(FALSE)
 }
 
-GetIDInfo <- function(protein_acc, ID_from, ID_to) {
+GetIDInfo <- function(protein_acc, ID_from, ID_to, taxId = NULL) {
   id_info <- lapply(ID_to, function(id) {
+    if ("UniProtKB" %in% ID_to){
+      files <- list(ids = protein_acc, from = ID_from, to = id, taxId=taxId)
+    }
     files <- list(ids = protein_acc, from = ID_from, to = id)
+    
     r <- POST(url = "https://rest.uniprot.org/idmapping/run", body = files, encode = "multipart", accept_json())
     submission <- content(r, as = "parsed", encoding = 'UTF-8')
     
@@ -57,7 +61,7 @@ GetResultsTable <- function(redirectURL) {
   resultsTable$From <- NULL
   
   if (dim(resultsTable)[1] > 1) {
-    resultsTable <- data.frame(Id_to = paste(resultsTable$To, collapse = ","))
+    resultsTable <- data.frame(Id_to = paste(resultsTable$Entry, collapse = ","))
   }
   
   return(resultsTable)
@@ -70,8 +74,7 @@ GetResultsTable <- function(redirectURL) {
 #' see https://www.uniprot.org/help/id_mapping.
 #' see https://raw.githubusercontent.com/MohmedSoudy/UniprotR/master/uniprot_ids.csv
 #'
-#' @usage ConvertID(ProteinAccList , ID_from = "UniProtKB_AC-ID" , ID_to = NULL
-#'  , directorypath = NULL)
+#' @usage ConvertID(ProteinAccList,ID_from="UniProtKB_AC-ID",ID_to=NULL,taxId=NULL,path=NULL)
 #'
 #' @param ProteinAccList  Vector of UniProt Accession/s
 #'
@@ -80,7 +83,9 @@ GetResultsTable <- function(redirectURL) {
 #' @param ID_to string of database identifier abbreviation, to which the Accession/ID will be converted.
 #'              default is all database identifier available in UniProtKB
 #'
-#' @param directorypath path to save excel file containig results returened by the function.
+#' @param path path to save excel file containig results returened by the function.
+#' 
+#' @param taxId string Needed when the ID_to is 'UniProtKB' that could be '9606' for human.
 #'
 #' @return DataFrame where column one contains the Accession/ID before conversion
 #'      and other columns contains the Accession/ID after conversion
@@ -92,10 +97,10 @@ GetResultsTable <- function(redirectURL) {
 #'
 #' @author Mohmed Soudy \email{Mohamed.soudy@57357.com} and Ali Mostafa \email{ali.mo.anwar@std.agr.cu.edu.eg}
 #' 
-ConvertID <- function(ProteinAccList, ID_from = "UniProtKB_AC-ID", ID_to = NULL, directorypath = NULL) {
+ConvertID <- function(ProteinAccList, ID_from = "UniProtKB_AC-ID", ID_to = NULL, taxId = NULL, path = NULL) {
   if (is.null(ID_to)) {
     ID_to <- c(
-      "UniParc", "UniRef50", "UniRef90", "UniRef100", "Gene_Name", "CRC64", "CCDS", 
+      "UniProtKB", "UniParc", "UniRef50", "UniRef90", "UniRef100", "Gene_Name", "CRC64", "CCDS", 
       "EMBL-GenBank-DDBJ", "EMBL-GenBank-DDBJ_CDS", "GI_number", "PIR", "RefSeq_Nucleotide", 
       "RefSeq_Protein", "PDB", "BioGRID", "ComplexPortal", "DIP", "STRING", "ChEMBL", 
       "DrugBank", "GuidetoPHARMACOLOGY", "SwissLipids", "Allergome", "CLAE", "ESTHER", 
@@ -113,13 +118,17 @@ ConvertID <- function(ProteinAccList, ID_from = "UniProtKB_AC-ID", ID_to = NULL,
   }
   
   id_info_list <- lapply(ProteinAccList, function(protein_acc) {
-    GetIDInfo(protein_acc, ID_from, ID_to)
+    if ("UniProtKB" %in% ID_to){
+      GetIDInfo(protein_acc, ID_from, ID_to, taxId)
+    }else{
+      GetIDInfo(protein_acc, ID_from, ID_to)
+    }
   })
   
   id_frame <- bind_rows(id_info_list)
   rownames(id_frame) <- ProteinAccList
-  if (!is.null(directorypath)){
-    write.csv(id_frame, paste0(directorypath, "Mapped_ids.csv"))
+  if (!is.null(path)){
+    write.csv(id_frame, paste0(path, "Mapped_ids.csv"))
   }
   return(id_frame)
 }

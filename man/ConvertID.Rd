@@ -4,8 +4,7 @@
 \alias{ConvertID}
 \title{Connect and parse UniProt database identifiers information.}
 \usage{
-ConvertID(ProteinAccList , ID_from = "UniProtKB_AC-ID" , ID_to = NULL
- , directorypath = NULL)
+ConvertID(ProteinAccList,ID_from="UniProtKB_AC-ID",ID_to=NULL,taxId=NULL,path=NULL)
 }
 \arguments{
 \item{ProteinAccList}{Vector of UniProt Accession/s}
@@ -15,7 +14,9 @@ ConvertID(ProteinAccList , ID_from = "UniProtKB_AC-ID" , ID_to = NULL
 \item{ID_to}{string of database identifier abbreviation, to which the Accession/ID will be converted.
 default is all database identifier available in UniProtKB}
 
-\item{directorypath}{path to save excel file containig results returened by the function.}
+\item{taxId}{string Needed when the ID_to is 'UniProtKB' that could be '9606' for human.}
+
+\item{path}{path to save excel file containig results returened by the function.}
 }
 \value{
 DataFrame where column one contains the Accession/ID before conversion
