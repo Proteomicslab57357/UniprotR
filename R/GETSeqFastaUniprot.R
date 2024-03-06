@@ -22,9 +22,7 @@ GETSeqFastaUniprot <- function(Accessions, FilePath = NULL ,FileName = NULL)
   {
     Request <- tryCatch(
       {
-
         GET(paste0("https://rest.uniprot.org/uniprotkb/" , Acc , ".fasta") , timeout(10))
-
       },error = function(cond)
       {
         message("Internet connection problem occurs and the function will return the original error")
@@ -33,10 +31,8 @@ GETSeqFastaUniprot <- function(Accessions, FilePath = NULL ,FileName = NULL)
     )
     if (Request$status_code == 200)
     {
-
       Fastadata <- tryCatch(read.csv(paste0("https://rest.uniprot.org/uniprotkb/" , Acc , ".fasta"),
                             header = F , sep = "\t"), error=function(e) NULL)
-
       Sequences <- paste0(as.character(unlist(Fastadata)) , collapse = "\n")
       write.table(x = Sequences , file = paste0(FileName ,".fasta") , quote = F , row.names = F , col.names = F, append = T)
       pb$tick()

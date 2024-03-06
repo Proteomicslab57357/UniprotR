@@ -4,7 +4,7 @@
 \alias{Enrichment.MF}
 \title{Connect and parse UniProt information}
 \usage{
-Enrichment.MF(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
+Enrichment.MF(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL,top=10)
 }
 \arguments{
 \item{Accs}{Vector of UniProt Accession/s or genes}
@@ -14,6 +14,8 @@ Enrichment.MF(Accs,OS="hsapiens",p_value=0.05,directorypath=NULL)
 \item{p_value}{custom p-value threshold for significance, default = 0.05}
 
 \item{directorypath}{Path to save output plot}
+
+\item{top}{Top N terms to be visualized}
 }
 \description{
 This function is used for Enrichment analysis of Molecular function of given list of genes or proteins
